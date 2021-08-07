@@ -81,7 +81,7 @@ scene("game", () => {
   // define map (can make a longer array of these later)
 
   /*
-  LEVEL DESIGN 
+  LIAM'S LEVEL DESIGN 
   - Every 'brick' causing rotation, blocks don't,
   - Collect 7 biscuits on each level to truly complete it
 
@@ -147,9 +147,10 @@ scene("game", () => {
     '$                               ()           ',
     'x   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx           ',
   ]
+  
+  /// MORE LEVELS HERE /// 
 
-  FINAL LEVEL (WHATEVER NUMBER THAT IS)
-    - JUST FOR THE LOLS
+  FINAL LEVEL (This is insane btw)
   
    map = [
     '                                                                                                            ',
@@ -164,9 +165,22 @@ scene("game", () => {
     'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   xx',
   ]
 
-  */
-
   
+  DAN'S LEVEL
+  map = [
+    '                                                                                               =*=%           ',
+    '                   -+                                                                      ^                  ',
+    '                 ^ () ^                                                                   xxxx                ',
+    '      =*=%     xxxxxxxxx                                                                                      ',
+    '            xx           $   $                                               *           ^     xxxxxxx        ',
+    '          xx              $              *           %                                  xx        -+          ',
+    '       xx                  $                                      ^               -+ ^            () $        ',
+    '    xx                       -+    xxx   xxx  xxx   xxx   xxx   xxxxx  -+    xxxxx()xxxx          xxxx        ',
+    '  xx                      *  ()                                        ()         xx                     -+   ',
+    'xx                     xxxxxxxx                                        xx                                ()   ',
+  ]
+
+  */
   
   // define map level config - can make several of these for each level design
   const levelCfg = {
