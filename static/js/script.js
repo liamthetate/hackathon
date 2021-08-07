@@ -79,25 +79,115 @@ scene("game", () => {
   ])
 
   // define map (can make a longer array of these later)
+
+  /*
+  LIAM'S LEVEL DESIGN 
+  - Every 'brick' causing rotation, blocks don't,
+  - Collect 7 biscuits on each level to truly complete it
+
+  LEVEL 1
+  - intro of weird mechanics
+  - enemy
+  - collecting coins
+  - going into tea cup
+  */
+
   map = [
-    '                                                                                                              ',
-    '                                                                                                              ',
-    '                                                                                                              ',
-    '                                                                                                              ',
-    '                                                                                                              ',
-    '    %   =*=%=                               -+             %   =*=%=                               -+         ',
-    '                                            ()                                                     ()         ',
-    '                      -+          -+       xxx      -+                       -+          -+       xxx      -+ ',
-    '             ^   ^    ()          ()                ()              ^   ^    ()          ()                () ',
-    'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxx  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxx  xxxxxxxx',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                       $    $ ',
+    '                        $   -+',
+    '          ^       $  $   $ $()',
+    'xx =========  ==  x  x   =====',
+  ]
+  
+
+  /* LEVEL 2
+  - harder version of level 1
+
+  map = [
+    '                    $          ',
+    '                 $             ',
+    '             $     =x          ',
+    '              =x               ',
+    '        $                      ',
+    '         xx                    ',
+    '                               ',
+    '    =x                       -+',
+    '              $   ^    $      ()',
+    'xx      xxx  xx  x=x   x    xxx',
   ]
 
+  LEVEL 3
+  - introduce big head and big jump
+  
+   map = [
+    '                                     $ $     ',
+    '                                    $ $ $    ',
+    '                                             ',
+    'xx    x                             x x x    ',
+    '          $                                  ',
+    '              x          x                   ',
+    '                   =# =                      ',
+    '           x       ====       x              ',
+    '                                             ',
+    '                x         x                  ',
+    '                                             ',
+    '                     x                       ',
+    '                                             ',
+    '                         x                   ',
+    '                                             ',
+    '                                             ',
+    '                            x                ',
+    '                                -+           ',
+    '$                               ()           ',
+    'x   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx           ',
+  ]
+  
+  /// MORE LEVELS HERE /// 
+
+  FINAL LEVEL (This is insane btw)
+  
+   map = [
+    '                                                                                                            ',
+    '                                                                                                            ',
+    '                                                                                                            ',
+    '                                                                                                            ',
+    '                                                                                                            ',
+    '                                                                                                            ',
+    '                                                                                                            ',
+    '                                                                                                          -+',
+    '                                                    #                                                     ()',
+    'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   xx',
+  ]
+
+  
+  DAN'S LEVEL
+  map = [
+    '                                                                                               =*=%           ',
+    '                   -+                                                                      ^                  ',
+    '                 ^ () ^                                                                   xxxx                ',
+    '      =*=%     xxxxxxxxx                                                                                      ',
+    '            xx           $   $                                               *           ^     xxxxxxx        ',
+    '          xx              $              *           %                                  xx        -+          ',
+    '       xx                  $                                      ^               -+ ^            () $        ',
+    '    xx                       -+    xxx   xxx  xxx   xxx   xxx   xxxxx  -+    xxxxx()xxxx          xxxx        ',
+    '  xx                      *  ()                                        ()         xx                     -+   ',
+    'xx                     xxxxxxxx                                        xx                                ()   ',
+  ]
+
+  */
+  
   // define map level config - can make several of these for each level design
   const levelCfg = {
     width: 20,
     height: 20,
     '=': [sprite('block'), solid()],
-    'x': [sprite('brick'), solid()],
+    'x': [sprite('brick'), solid(), 'brick'],
     '$': [sprite('coin'), 'coin'],
     '%': [sprite('question'), 'coin-surprise', solid()],
     '*': [sprite('question'), 'mushroom-surprise', solid()],
@@ -105,8 +195,9 @@ scene("game", () => {
     '(': [sprite('pipe-left'), scale(0.5), solid()],
     ')': [sprite('pipe-right'), scale(0.5), solid()],
     '-': [sprite('pipe-top-left-side'), scale(0.5), solid()],
-    '+': [sprite('pipe-top-right-side'), scale(0.5), solid(), 'pipe'],
+    '+': [sprite('pipe-top-right-side'), scale(0.5), solid()],
     'r': [sprite('pipe-top-right-side'), scale(0.5), solid()],
+    'b': [sprite('block'), solid()],
     '^': [sprite('evil-shroom-1'), solid(), 'dangerous'],
     '#': [sprite('mushroom'), 'mushroom', body()],
   }
@@ -181,7 +272,7 @@ scene("game", () => {
   });
 
   // lionel jump (could use spacebar as well maybe?)
-  keyPress('up', () => {
+  keyPress('space', () => {
     if (lionel.grounded()) {
       isJumping = true
       lionel.jump(CURRENT_JUMP_FORCE)
@@ -227,10 +318,10 @@ scene("game", () => {
   document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
 
   // action when lionel jumps on pipe
-  lionel.collides('pipe', (p) => {
+  lionel.collides('brick', (p) => {
     angle += 90;
     destroy(p)
-    gameLevel.spawn('r', p.gridPos.sub(0, 0))
+    gameLevel.spawn('b', p.gridPos.sub(0, 0))
     play("comedy_jump")
     // spins canvas
     document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
@@ -245,10 +336,10 @@ scene("game", () => {
       })
     ])
 
-    if (musicTune == 400){
-      musicTune = -300
+    if (musicTune == 2000){
+      musicTune = -1000
     } else {
-      musicTune += 100
+      musicTune += 40
     }
     console.log(musicTune)
     music.detune(musicTune)
@@ -269,13 +360,13 @@ scene("gameover", () => {
   ]);
 
   add([
-    text("You are an idiot", 32),
+    text("You are a loser", 32),
     pos(width() / 2, 220),
     origin("center"),
   ]);
 
   add([
-    text("Press space to go again", 16),
+    text("Press space to go again, loser", 16),
     pos(width() / 2, 320),
     origin("center"),
   ]);
@@ -295,7 +386,7 @@ scene("start", () => {
 
   // starting screen text
   add([
-    text("Welcome to Lionoil", 20),
+    text("L I O N O I L", 20),
     pos(width() / 2, 120),
     origin("center"),
   ]);
