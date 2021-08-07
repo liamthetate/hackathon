@@ -4,6 +4,7 @@
 ## Commodore[s] 64s
 -------
 
+<<<<<<< HEAD
 
 ### Table of Contents
 
@@ -94,3 +95,8 @@ To do
 ### Credits
 
 To do
+=======
+## this another test to see if the main is protected
+This is a version revision to test things
+
+>>>>>>> 55f63eab8e0b588af0e802d8577154b81bbf0940
