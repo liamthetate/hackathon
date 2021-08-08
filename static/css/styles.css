@@ -21,8 +21,8 @@ p {
   font-size: small;
 }
 
-h3,
-p {
+.card-back h3,
+.card-back p {
   padding: 15px;
   color: black;
 }
