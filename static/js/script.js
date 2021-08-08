@@ -48,9 +48,19 @@ loadSprite("background-red", "static/sprites/bg5c.png")
 loadSprite("background-green", "static/sprites/bg5d.png")
 loadSprite("lionel-bg", "static/sprites/pixelated-lionel.jpg")
 
+// villain sprites
+loadSprite("bob-mardy", "static/sprites/bob-mardy-small.png")
+loadSprite("disco-inferno", "static/sprites/disco-inferno-small.png")
+loadSprite("rotten-johnny", "static/sprites/rotten-johnny-small.png")
+loadSprite("shanking-stevens", "static/sprites/shanking-stevens-small.png")
+loadSprite("shanking-stevens1", "static/sprites/shanking-stevens1-small.png")
+loadSprite("inhuman-plague", "static/sprites/the-inhuman-plague-small.png")
+loadSprite("whackem-jackson", "static/sprites/whackem-jackson-small.png")
+
 const layerColours = ["pink", "blue", "red", "green"]
 let musicTune = 0;
 const angles = [0, 90, 180, 360]
+const villains = [sprite("bob-mardy"), sprite("disco-inferno"), sprite("rotten-johnny"), sprite("shanking-stevens"), sprite("shanking-stevens1"), sprite("inhuman-plague"), sprite("whackem-jackson")];
 
 scene("game", () => {
 
@@ -61,12 +71,14 @@ scene("game", () => {
   const ENEMY_SPEED = 20
   const FALL_DEATH = 600
 
+  // // gets random villain
+  let randVillain = villains[Math.floor(Math.random() * villains.length)];
+
+  // gets random viewing angle
   let angle = angles[Math.floor(Math.random() * angles.length)];
 
   // sets basic viewing angle
   document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
-
-  let isJumping = true
 
   // defines random background colour
   let colour = layerColours[Math.floor(Math.random() * layerColours.length)];
@@ -158,6 +170,18 @@ scene("game", () => {
     origin('bot'),
   ]);
 
+  // spawns villain sprite at random point on the map
+  const villain = add([
+    randVillain,
+    pos(rand(100, gameLevel.width()) ,0),
+    'evil',
+    solid(),
+    body(),
+    origin('bot'),
+  ]);
+
+  console.log(villain.pos)
+
   // defines lionel sprites behaviour - is tracked by camera and falldeath action
   lionel.action(() => {
     camPos(lionel.pos)
@@ -228,6 +252,10 @@ scene("game", () => {
   lionel.collides('coin', (c) => {
     play("death_scream")
     destroy(c)
+  });
+
+  lionel.collides('evil', () => {
+    camShake(4);
   });
 
   // action when lionel jumps on brick
