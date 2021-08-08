@@ -68,6 +68,11 @@ body {
   border: black 4px solid;
   border-radius: 10px;
   transform: rotateX(0deg);
+  -webkit-perspective: 0;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0,0,0);
+  visibility:visible;
+  backface-visibility: hidden;
 }
 
 .card-front {
