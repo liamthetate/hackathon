@@ -60,14 +60,13 @@ loadSprite("whackem-jackson", "static/sprites/whackem-jackson-small.png")
 const layerColours = ["pink", "blue", "red", "green"]
 const angles = [0, 90, 180, 360]
 const villains = [sprite("bob-mardy"), sprite("disco-inferno"), sprite("rotten-johnny"), sprite("shanking-stevens"), sprite("shanking-stevens1"), sprite("inhuman-plague"), sprite("whackem-jackson")];
+let playerScore = 0;
 
 scene("game", () => {
 
-  const MOVE_SPEED = 120
   const JUMP_FORCE = 360
   const BIG_JUMP_FORCE = 550
   let CURRENT_JUMP_FORCE = JUMP_FORCE
-  const ENEMY_SPEED = 20
   const FALL_DEATH = 600
 
   // // gets random villain
@@ -114,6 +113,15 @@ scene("game", () => {
     '^': [sprite('evil-shroom-1'), solid(), 'dangerous'],
     '#': [sprite('mushroom'), 'mushroom', body()],
   }
+
+  const scoreLabel = add([
+    text(playerScore),
+    pos(30,6),
+    layer('ui'),
+    {
+      value: playerScore,
+    }
+  ])
 
   // gets random map from map array
   let map = maps[Math.floor(Math.random() * maps.length)];
@@ -276,6 +284,7 @@ scene("game", () => {
 
   // action when lionel jumps on pipe
   lionel.collides('pipe', () => {
+    playerScore += 1;
     go("game");
 
   });
@@ -294,14 +303,14 @@ scene("gameover", () => {
   // gameover screen text
   add([
     text("Game Over", 16),
-    pos(width() / 2, 120),
+    pos(width() / 2, 100),
     origin("center"),
     color(rgb(0, 0, 0)),
   ]);
 
   add([
-    text("You are a loser", 16),
-    pos(width() / 2, 220),
+    text(`Score: ${playerScore}`, 16),
+    pos(width() / 2, 180),
     origin("center"),
     color(rgb(1, 1, 1)),
     color(rgb(0, 0, 0)),
@@ -309,7 +318,7 @@ scene("gameover", () => {
 
   add([
     text("Press space to go again, loser", 16),
-    pos(width() / 2, 280),
+    pos(width() / 2, 260),
     origin("center"),
     color(rgb(1, 1, 1)),
     color(rgb(0, 0, 0)),
@@ -317,6 +326,7 @@ scene("gameover", () => {
 
   // press space to restart game
   keyPress("space", () => {
+    playerScore = 0;
     go("game");
     music.play()
   });
