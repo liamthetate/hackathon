@@ -9,6 +9,11 @@
     overflow: hidden;
     display: flex;
     justify-content: center;
+    background: url("../images/retro-cloud.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
   }
 
   canvas {
