@@ -95,8 +95,6 @@ body {
 
 .card-back {
   background-color: #73ca75;
-  /* background-color: #DFACDE; */
-  color: azure;
   transform: rotateY(180deg);
 }
 
