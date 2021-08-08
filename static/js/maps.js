@@ -35,7 +35,7 @@ const maps = [
     '         xx                    ',
     '                               ',
     '    =x                       -+',
-    '              $   ^    $      ()',
+    '              $   ^    $     ()',
     'xx      xxx  xx  x=x   x    xxx',
   ],
 

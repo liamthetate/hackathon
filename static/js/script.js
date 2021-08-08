@@ -2,8 +2,8 @@
 const k = kaboom({
   global: true, // import all kaboom functions to global namespace
   scale: 2, // pixel size (for pixelated games you might want smaller size with scale)
-  clearColor: [1, 1, 1, 1], // background color (default is a checker board background)
-  fullscreen: false, // if fullscreen
+  clearColor: [0, 0, 0, 0], // background color (default is a checker board background)
+  fullscreen: true, // if fullscreen
   crisp: true, // if pixel crisp (for sharp pixelated games)
   debug: true, // debug mode
 });
@@ -58,17 +58,15 @@ loadSprite("inhuman-plague", "static/sprites/the-inhuman-plague-small.png")
 loadSprite("whackem-jackson", "static/sprites/whackem-jackson-small.png")
 
 const layerColours = ["pink", "blue", "red", "green"]
-let musicTune = 0;
 const angles = [0, 90, 180, 360]
 const villains = [sprite("bob-mardy"), sprite("disco-inferno"), sprite("rotten-johnny"), sprite("shanking-stevens"), sprite("shanking-stevens1"), sprite("inhuman-plague"), sprite("whackem-jackson")];
+let playerScore = 0;
 
 scene("game", () => {
 
-  const MOVE_SPEED = 120
   const JUMP_FORCE = 360
   const BIG_JUMP_FORCE = 550
   let CURRENT_JUMP_FORCE = JUMP_FORCE
-  const ENEMY_SPEED = 20
   const FALL_DEATH = 600
 
   // // gets random villain
@@ -82,8 +80,6 @@ scene("game", () => {
 
   // defines random background colour
   let colour = layerColours[Math.floor(Math.random() * layerColours.length)];
-
-  music.detune(musicTune)
 
   layers(['bg', 'obj', 'ui'], 'obj')
 
@@ -118,6 +114,15 @@ scene("game", () => {
     '#': [sprite('mushroom'), 'mushroom', body()],
   }
 
+  const scoreLabel = add([
+    text(playerScore),
+    pos(30,6),
+    layer('ui'),
+    {
+      value: playerScore,
+    }
+  ])
+
   // gets random map from map array
   let map = maps[Math.floor(Math.random() * maps.length)];
 
@@ -144,18 +149,20 @@ scene("game", () => {
       // makes lionel small once the timer has elapsed
       smallify() {
         play("jump")
-        this.scale = vec2(1.5)
+        this.scale = vec2(1)
         timer = 0
         isBig = false
         CURRENT_JUMP_FORCE = JUMP_FORCE
+        music.detune(0)
       },
       // makes lionel big when eating 'mushroom'
       biggify(time) {
         play("comedy_jump")
-        this.scale = vec2(3)
+        this.scale = vec2(2)
         timer = time
         isBig = true
         CURRENT_JUMP_FORCE = BIG_JUMP_FORCE
+        music.detune(250)
       }
     }
   }
@@ -165,7 +172,7 @@ scene("game", () => {
     sprite("lionel"),
     pos(30, 0),
     body(),
-    scale(1.5),
+    scale(1),
     big(),
     origin('bot'),
   ]);
@@ -173,89 +180,97 @@ scene("game", () => {
   // spawns villain sprite at random point on the map
   const villain = add([
     randVillain,
-    pos(rand(100, gameLevel.width()) ,0),
+    pos(rand(100, gameLevel.width()), 0),
     'evil',
     solid(),
     body(),
     origin('bot'),
   ]);
 
-  console.log(villain.pos)
+  // makes villain character jump continuously once grounded
+  villain.action(() => {
+    if (villain.grounded()){
+      villain.jump(150);
+    }
+  })
+  
+  lionel.collides('evil', (e) => {
+    if (lionel.pos.y < e.pos.y) {
+      lionel.jump(JUMP_FORCE);
+      play("death_scream");
+      camShake(2);
+      destroy(e);
+    } else {
+      console.log("You Lose");
+      lionel.destroy();
+      go("gameover");
+    }
+  })
 
   // defines lionel sprites behaviour - is tracked by camera and falldeath action
   lionel.action(() => {
     camPos(lionel.pos)
     if (lionel.pos.y >= FALL_DEATH) {
-      console.log("You Lose")
-      lionel.destroy()
-      play("death_scream")
-      go("gameover")
+      console.log("You Lose");
+      lionel.destroy();
+      go("gameover");
+    }
+    if (lionel.grounded()) {
+      isJumping = false;
     }
   });
 
   // lionel left movement
   keyDown('left', () => {
-    lionel.move(-120, 0)
+    lionel.move(-120, 0);
   });
 
   // lionel right movement
   keyDown('right', () => {
-    lionel.move(120, 0)
+    lionel.move(120, 0);
   });
 
   // lionel jump
   keyPress('space', () => {
     if (lionel.grounded()) {
-      isJumping = true
-      lionel.jump(CURRENT_JUMP_FORCE)
+      isJumping = true;
+      lionel.jump(CURRENT_JUMP_FORCE);
 
-      if (musicTune == 2000) {
-        musicTune = -1000
-      } else {
-        musicTune += 40
-      }
-
-      music.detune(musicTune)
-
-      play("jumpy")
+      play("jumpy");
     }
   });
 
   // action when lionel collides with 'coin-surprise' sprite
   lionel.collides('coin-surprise', (obj) => {
-    play("negative_hit1")
-    gameLevel.spawn('$', obj.gridPos.sub(0, 1))
-    destroy(obj)
-    gameLevel.spawn('}', obj.gridPos.sub(0, 0))
+    play("negative_hit1");
+    gameLevel.spawn('$', obj.gridPos.sub(0, 1));
+    destroy(obj);
+    gameLevel.spawn('}', obj.gridPos.sub(0, 0));
   });
 
   // action when lionel collides with 'mushroom-surprise' sprite
   lionel.collides('mushroom-surprise', (obj) => {
-    play("negative_hit2")
-    gameLevel.spawn('#', obj.gridPos.sub(0, 1))
-    destroy(obj)
-    gameLevel.spawn('}', obj.gridPos.sub(0, 0))
+    play("negative_hit2");
+    gameLevel.spawn('#', obj.gridPos.sub(0, 1));
+    destroy(obj);
+    gameLevel.spawn('}', obj.gridPos.sub(0, 0));
   });
 
   // action when mushroom is activated
   action('mushroom', (m) => {
-    m.move(20, 0)
+    m.move(20, 0);
   });
 
   // action when lionel collides with mushroom sprite
   lionel.collides('mushroom', (m) => {
-    lionel.biggify(10)
-    destroy(m)
+    lionel.biggify(10);
+    destroy(m);
   });
 
   // action when lionel collides with coin sprite
   lionel.collides('coin', (c) => {
-    play("death_scream")
-    destroy(c)
-  });
-
-  lionel.collides('evil', () => {
-    camShake(4);
+    play("death_scream");
+    destroy(c);
   });
 
   // action when lionel jumps on brick
@@ -269,9 +284,10 @@ scene("game", () => {
 
   // action when lionel jumps on pipe
   lionel.collides('pipe', () => {
+    playerScore += 1;
     go("game");
 
-  })
+  });
 
 });
 
@@ -287,24 +303,30 @@ scene("gameover", () => {
   // gameover screen text
   add([
     text("Game Over", 16),
-    pos(width() / 2, 120),
+    pos(width() / 2, 100),
     origin("center"),
+    color(rgb(0, 0, 0)),
   ]);
 
   add([
-    text("You are a loser", 32),
-    pos(width() / 2, 220),
+    text(`Score: ${playerScore}`, 16),
+    pos(width() / 2, 180),
     origin("center"),
+    color(rgb(1, 1, 1)),
+    color(rgb(0, 0, 0)),
   ]);
 
   add([
     text("Press space to go again, loser", 16),
-    pos(width() / 2, 320),
+    pos(width() / 2, 260),
     origin("center"),
+    color(rgb(1, 1, 1)),
+    color(rgb(0, 0, 0)),
   ]);
 
   // press space to restart game
   keyPress("space", () => {
+    playerScore = 0;
     go("game");
     music.play()
   });
