@@ -2,7 +2,7 @@
 const k = kaboom({
   global: true, // import all kaboom functions to global namespace
   scale: 2, // pixel size (for pixelated games you might want smaller size with scale)
-  clearColor: [1, 0, 1, 1], // background color (default is a checker board background)
+  clearColor: [1, 1, 1, 1], // background color (default is a checker board background)
   fullscreen: false, // if fullscreen
   crisp: true, // if pixel crisp (for sharp pixelated games)
   debug: true, // debug mode
@@ -30,7 +30,7 @@ const music = play("game_loop");
 // define 'lionel' sprite
 loadSprite("lionel", "static/sprites/lionel.png");
 
-// define map sprites (Mario)
+// define map sprites
 loadSprite("block", "static/sprites/block.png")
 loadSprite("brick", "static/sprites/brick.png")
 loadSprite("coin", "static/sprites/coin.png")
@@ -46,6 +46,7 @@ loadSprite("background-pink", "static/sprites/bg5.png")
 loadSprite("background-blue", "static/sprites/bg5b.jpg")
 loadSprite("background-red", "static/sprites/bg5c.jpg")
 loadSprite("background-green", "static/sprites/bg5d.jpg")
+loadSprite("lionel-bg", "static/sprites/pixelated-lionel.jpg")
 
 const layerColours = ["pink", "blue", "red", "green"]
 let musicTune = 0;
@@ -285,13 +286,25 @@ scene("gameover", () => {
 // defines starting screen
 scene("start", () => {
 
-  music.stop()
+  layers(['bg', 'obj'], 'obj')
+
+  camIgnore(["bg", "ui"])
+
+  // sets random background colour
+  add([
+    layer("bg"),
+    sprite("lionel-bg", {
+      width: width(),
+      height: height(),
+    })
+  ]);
 
   // starting screen text
   add([
     text("L I O N O I L", 20),
     pos(width() / 2, 120),
     origin("center"),
+    color(rgb(1, 1, 1))
   ]);
 
   // starting screen text 2
@@ -299,6 +312,7 @@ scene("start", () => {
     text("Press the space key to begin", 16),
     pos(width() / 2, 180),
     origin("center"),
+    color(rgb(1, 1, 1))
   ]);
 
   // press space to start
