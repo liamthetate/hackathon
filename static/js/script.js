@@ -2,8 +2,8 @@
 const k = kaboom({
   global: true, // import all kaboom functions to global namespace
   scale: 2, // pixel size (for pixelated games you might want smaller size with scale)
-  clearColor: [1, 0, 1, 1], // background color (default is a checker board background)
-  fullscreen: false, // if fullscreen
+  clearColor: [0, 0, 0, 0], // background color (default is a checker board background)
+  fullscreen: true, // if fullscreen
   crisp: true, // if pixel crisp (for sharp pixelated games)
   debug: true, // debug mode
 });
@@ -26,12 +26,11 @@ loadSound("creepy_menu", "static/sounds/CREEPY_AMBIENT_REVERSE_LOOP.mp3")
 loadSound("game_loop", "static/sounds/REGULAR_GAMELOOP.mp3")
 
 const music = play("game_loop");
-const menu_music = play("creepy_menu");
 
 // define 'lionel' sprite
 loadSprite("lionel", "static/sprites/lionel.png");
 
-// define map sprites (Mario)
+// define map sprites
 loadSprite("block", "static/sprites/block.png")
 loadSprite("brick", "static/sprites/brick.png")
 loadSprite("coin", "static/sprites/coin.png")
@@ -44,60 +43,63 @@ loadSprite("pipe-top-right-side", "static/sprites/pipe-top-right-side.png")
 loadSprite("evil-shroom-1", "static/sprites/evil-shroom-1.png")
 loadSprite("mushroom", "static/sprites/mushroom.png")
 loadSprite("background-pink", "static/sprites/bg5.png")
-loadSprite("background-blue", "static/sprites/bg5b.jpg")
-loadSprite("background-red", "static/sprites/bg5c.jpg")
-loadSprite("background-green", "static/sprites/bg5d.jpg")
+loadSprite("background-blue", "static/sprites/bg5b.png")
+loadSprite("background-red", "static/sprites/bg5c.png")
+loadSprite("background-green", "static/sprites/bg5d.png")
+loadSprite("lionel-bg", "static/sprites/pixelated-lionel.jpg")
+
+// villain sprites
+loadSprite("bob-mardy", "static/sprites/bob-mardy-small.png")
+loadSprite("disco-inferno", "static/sprites/disco-inferno-small.png")
+loadSprite("rotten-johnny", "static/sprites/rotten-johnny-small.png")
+loadSprite("shanking-stevens", "static/sprites/shanking-stevens-small.png")
+loadSprite("shanking-stevens1", "static/sprites/shanking-stevens1-small.png")
+loadSprite("inhuman-plague", "static/sprites/the-inhuman-plague-small.png")
+loadSprite("whackem-jackson", "static/sprites/whackem-jackson-small.png")
+
+const layerColours = ["pink", "blue", "red", "green"]
+const angles = [0, 90, 180, 360]
+const villains = [sprite("bob-mardy"), sprite("disco-inferno"), sprite("rotten-johnny"), sprite("shanking-stevens"), sprite("shanking-stevens1"), sprite("inhuman-plague"), sprite("whackem-jackson")];
+let playerScore = 0;
 
 scene("game", () => {
 
-  const MOVE_SPEED = 120
   const JUMP_FORCE = 360
   const BIG_JUMP_FORCE = 550
   let CURRENT_JUMP_FORCE = JUMP_FORCE
-  const ENEMY_SPEED = 20
   const FALL_DEATH = 600
-  const layerColours = ["pink", "blue", "red", "green"]
-  let colourCounter = 0;
-  let musicTune = 0;
 
-  let isJumping = true
+  // // gets random villain
+  let randVillain = villains[Math.floor(Math.random() * villains.length)];
 
-  menu_music.stop()
+  // gets random viewing angle
+  let angle = angles[Math.floor(Math.random() * angles.length)];
 
-  music.detune(musicTune)
+  // sets basic viewing angle
+  document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
+
+  // defines random background colour
+  let colour = layerColours[Math.floor(Math.random() * layerColours.length)];
 
   layers(['bg', 'obj', 'ui'], 'obj')
 
   camIgnore(["bg", "ui"])
 
+  // sets random background colour
   add([
     layer("bg"),
-    sprite("background-pink", {
+    sprite(`background-${colour}`, {
       width: width(),
       height: height(),
     })
-  ])
-
-  // define map (can make a longer array of these later)
-  map = [
-    '                                                                                                              ',
-    '                                                                                                              ',
-    '                                                                                                              ',
-    '                                                                                                              ',
-    '                                                                                                              ',
-    '    %   =*=%=                               -+             %   =*=%=                               -+         ',
-    '                                            ()                                                     ()         ',
-    '                      -+          -+       xxx      -+                       -+          -+       xxx      -+ ',
-    '             ^   ^    ()          ()                ()              ^   ^    ()          ()                () ',
-    'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxx  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxx  xxxxxxxx',
-  ]
+  ]);
 
   // define map level config - can make several of these for each level design
   const levelCfg = {
     width: 20,
     height: 20,
     '=': [sprite('block'), solid()],
-    'x': [sprite('brick'), solid()],
+    'x': [sprite('brick'), solid(), 'brick'],
     '$': [sprite('coin'), 'coin'],
     '%': [sprite('question'), 'coin-surprise', solid()],
     '*': [sprite('question'), 'mushroom-surprise', solid()],
@@ -107,9 +109,22 @@ scene("game", () => {
     '-': [sprite('pipe-top-left-side'), scale(0.5), solid()],
     '+': [sprite('pipe-top-right-side'), scale(0.5), solid(), 'pipe'],
     'r': [sprite('pipe-top-right-side'), scale(0.5), solid()],
+    'b': [sprite('block'), solid()],
     '^': [sprite('evil-shroom-1'), solid(), 'dangerous'],
     '#': [sprite('mushroom'), 'mushroom', body()],
   }
+
+  const scoreLabel = add([
+    text(playerScore),
+    pos(30,6),
+    layer('ui'),
+    {
+      value: playerScore,
+    }
+  ])
+
+  // gets random map from map array
+  let map = maps[Math.floor(Math.random() * maps.length)];
 
   // creates game level
   const gameLevel = addLevel(map, levelCfg)
@@ -138,6 +153,7 @@ scene("game", () => {
         timer = 0
         isBig = false
         CURRENT_JUMP_FORCE = JUMP_FORCE
+        music.detune(0)
       },
       // makes lionel big when eating 'mushroom'
       biggify(time) {
@@ -146,6 +162,7 @@ scene("game", () => {
         timer = time
         isBig = true
         CURRENT_JUMP_FORCE = BIG_JUMP_FORCE
+        music.detune(250)
       }
     }
   }
@@ -155,108 +172,130 @@ scene("game", () => {
     sprite("lionel"),
     pos(30, 0),
     body(),
+    scale(1),
     big(),
     origin('bot'),
   ]);
+
+  // spawns villain sprite at random point on the map
+  const villain = add([
+    randVillain,
+    pos(rand(100, gameLevel.width()), 0),
+    'evil',
+    solid(),
+    body(),
+    origin('bot'),
+  ]);
+
+  // makes villain character jump continuously once grounded
+  villain.action(() => {
+    if (villain.grounded()){
+      villain.jump(150);
+    }
+  })
+  
+  lionel.collides('evil', (e) => {
+    if (lionel.pos.y < e.pos.y) {
+      lionel.jump(JUMP_FORCE);
+      play("death_scream");
+      camShake(2);
+      destroy(e);
+    } else {
+      console.log("You Lose");
+      lionel.destroy();
+      go("gameover");
+    }
+  })
 
   // defines lionel sprites behaviour - is tracked by camera and falldeath action
   lionel.action(() => {
     camPos(lionel.pos)
     if (lionel.pos.y >= FALL_DEATH) {
-      console.log("You Lose")
-      lionel.destroy()
-      play("death_scream")
-      go("gameover")
+      console.log("You Lose");
+      lionel.destroy();
+      go("gameover");
+    }
+    if (lionel.grounded()) {
+      isJumping = false;
     }
   });
 
   // lionel left movement
   keyDown('left', () => {
-    lionel.move(-120, 0)
+    lionel.move(-120, 0);
   });
 
   // lionel right movement
   keyDown('right', () => {
-    lionel.move(120, 0)
+    lionel.move(120, 0);
   });
 
-  // lionel jump (could use spacebar as well maybe?)
-  keyPress('up', () => {
+  // lionel jump
+  keyPress('space', () => {
     if (lionel.grounded()) {
-      isJumping = true
-      lionel.jump(CURRENT_JUMP_FORCE)
-      play("jumpy")
+      isJumping = true;
+      lionel.jump(CURRENT_JUMP_FORCE);
+
+      play("jumpy");
     }
   });
 
   // action when lionel collides with 'coin-surprise' sprite
   lionel.collides('coin-surprise', (obj) => {
-    play("negative_hit1")
-    gameLevel.spawn('$', obj.gridPos.sub(0, 1))
-    destroy(obj)
-    gameLevel.spawn('}', obj.gridPos.sub(0, 0))
+    play("negative_hit1");
+    gameLevel.spawn('$', obj.gridPos.sub(0, 1));
+    destroy(obj);
+    gameLevel.spawn('}', obj.gridPos.sub(0, 0));
   });
 
   // action when lionel collides with 'mushroom-surprise' sprite
   lionel.collides('mushroom-surprise', (obj) => {
-    play("negative_hit2")
-    gameLevel.spawn('#', obj.gridPos.sub(0, 1))
-    destroy(obj)
-    gameLevel.spawn('}', obj.gridPos.sub(0, 0))
+    play("negative_hit2");
+    gameLevel.spawn('#', obj.gridPos.sub(0, 1));
+    destroy(obj);
+    gameLevel.spawn('}', obj.gridPos.sub(0, 0));
   });
 
   // action when mushroom is activated
   action('mushroom', (m) => {
-    m.move(20, 0)
+    m.move(20, 0);
   });
 
   // action when lionel collides with mushroom sprite
   lionel.collides('mushroom', (m) => {
-    lionel.biggify(6)
-    destroy(m)
+    lionel.biggify(10);
+    destroy(m);
   });
 
   // action when lionel collides with coin sprite
   lionel.collides('coin', (c) => {
-    play("death_scream")
-    destroy(c)
+    play("death_scream");
+    destroy(c);
   });
 
-  // sets basic viewing angle
-  let angle = 0;
-  document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
+  // action when lionel jumps on brick
+  lionel.collides('brick', (p) => {
+    // destroy(p)
+    // gameLevel.spawn('b', p.gridPos.sub(0, 0))
+    // spins canvas
+    // document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
+
+  });
 
   // action when lionel jumps on pipe
-  lionel.collides('pipe', (p) => {
-    angle += 90;
-    destroy(p)
-    gameLevel.spawn('r', p.gridPos.sub(0, 0))
-    play("comedy_jump")
-    // spins canvas
-    document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
+  lionel.collides('pipe', () => {
+    playerScore += 1;
+    go("game");
 
-    // updates background colour
-    colourCounter = (colourCounter + 1) % layerColours.length;
-    add([
-      layer("bg"),
-      sprite(`background-${layerColours[colourCounter]}`, {
-        width: width(),
-        height: height(),
-      })
-    ])
-
-    if (musicTune == 400){
-      musicTune = -300
-    } else {
-      musicTune += 100
-    }
-    console.log(musicTune)
-    music.detune(musicTune)
   });
+
 });
 
 // defines gameover screen
 scene("gameover", () => {
+
+  // resets viewing angle
+  document.querySelector('canvas').style.setProperty("transform", "rotate(0deg)")
 
   music.stop()
   play("gameover_sound")
@@ -264,24 +303,30 @@ scene("gameover", () => {
   // gameover screen text
   add([
     text("Game Over", 16),
-    pos(width() / 2, 120),
+    pos(width() / 2, 100),
     origin("center"),
+    color(rgb(0, 0, 0)),
   ]);
 
   add([
-    text("You are an idiot", 32),
-    pos(width() / 2, 220),
+    text(`Score: ${playerScore}`, 16),
+    pos(width() / 2, 180),
     origin("center"),
+    color(rgb(1, 1, 1)),
+    color(rgb(0, 0, 0)),
   ]);
 
   add([
-    text("Press space to go again", 16),
-    pos(width() / 2, 320),
+    text("Press space to go again, loser", 16),
+    pos(width() / 2, 260),
     origin("center"),
+    color(rgb(1, 1, 1)),
+    color(rgb(0, 0, 0)),
   ]);
 
   // press space to restart game
   keyPress("space", () => {
+    playerScore = 0;
     go("game");
     music.play()
   });
@@ -291,13 +336,25 @@ scene("gameover", () => {
 // defines starting screen
 scene("start", () => {
 
-  music.stop()
+  layers(['bg', 'obj'], 'obj')
+
+  camIgnore(["bg", "ui"])
+
+  // sets random background colour
+  add([
+    layer("bg"),
+    sprite("lionel-bg", {
+      width: width(),
+      height: height(),
+    })
+  ]);
 
   // starting screen text
   add([
-    text("Welcome to Lionoil", 20),
+    text("L I O N O I L", 20),
     pos(width() / 2, 120),
     origin("center"),
+    color(rgb(1, 1, 1))
   ]);
 
   // starting screen text 2
@@ -305,6 +362,7 @@ scene("start", () => {
     text("Press the space key to begin", 16),
     pos(width() / 2, 180),
     origin("center"),
+    color(rgb(1, 1, 1))
   ]);
 
   // press space to start
