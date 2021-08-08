@@ -46,6 +46,7 @@ loadSprite("background-pink", "static/sprites/bg5.png")
 loadSprite("background-blue", "static/sprites/bg5b.png")
 loadSprite("background-red", "static/sprites/bg5c.png")
 loadSprite("background-green", "static/sprites/bg5d.png")
+loadSprite("lionel-bg", "static/sprites/pixelated-lionel.jpg")
 
 const layerColours = ["pink", "blue", "red", "green"]
 let musicTune = 0;
