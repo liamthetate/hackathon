@@ -21,3 +21,15 @@
     margin-top: 10vh;
     height: 80vh;
   }
+  .font{
+    font-family: 'Amiga Forever';
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 3px;
+  }
+  #name{
+    background-color: transparent;
+    font-family: 'Amiga Forever';
+    font-weight: 700;
+    border-color: black;
+  }

@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_pymongo import PyMongo
 if os.path.exists("env.py"):
     import env
@@ -14,8 +14,17 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def index():
-    scores = mongo.db.scores.find()
-    return render_template("index.html", scores=scores)
+    return render_template("index.html")
+
+
+# Post a score to MongoDB
+@app.route('/add_score', methods=['GET', 'POST'])
+def add_score():
+    if request.method == 'POST':
+        scores = mongo.db.scores
+        scores.insert_one(request.form.to_dict())
+        return redirect(url_for('index'))
+    return render_template('index.html')
 
 
 if __name__ == "__main__":
