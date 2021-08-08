@@ -43,9 +43,9 @@ loadSprite("pipe-top-right-side", "static/sprites/pipe-top-right-side.png")
 loadSprite("evil-shroom-1", "static/sprites/evil-shroom-1.png")
 loadSprite("mushroom", "static/sprites/mushroom.png")
 loadSprite("background-pink", "static/sprites/bg5.png")
-loadSprite("background-blue", "static/sprites/bg5b.jpg")
-loadSprite("background-red", "static/sprites/bg5c.jpg")
-loadSprite("background-green", "static/sprites/bg5d.jpg")
+loadSprite("background-blue", "static/sprites/bg5b.png")
+loadSprite("background-red", "static/sprites/bg5c.png")
+loadSprite("background-green", "static/sprites/bg5d.png")
 
 const layerColours = ["pink", "blue", "red", "green"]
 let musicTune = 0;
