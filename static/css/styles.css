@@ -3,7 +3,8 @@
 * {
   margin: 0;
   padding: 0;
-  
+}
+
  h1 {
   font-family: 'Amiga Forever', sans-serif;
   text-align: center;
@@ -23,6 +24,7 @@ p {
 h3,
 p {
   padding: 15px;
+  color: black;
 }
 
 img {
