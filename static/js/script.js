@@ -2,7 +2,7 @@
 const k = kaboom({
   global: true, // import all kaboom functions to global namespace
   scale: 2, // pixel size (for pixelated games you might want smaller size with scale)
-  clearColor: [1, 0, 1, 1], // background color (default is a checker board background)
+  clearColor: [1, 1, 1, 1], // background color (default is a checker board background)
   fullscreen: false, // if fullscreen
   crisp: true, // if pixel crisp (for sharp pixelated games)
   debug: true, // debug mode
@@ -26,12 +26,11 @@ loadSound("creepy_menu", "static/sounds/CREEPY_AMBIENT_REVERSE_LOOP.mp3")
 loadSound("game_loop", "static/sounds/REGULAR_GAMELOOP.mp3")
 
 const music = play("game_loop");
-const menu_music = play("creepy_menu");
 
 // define 'lionel' sprite
 loadSprite("lionel", "static/sprites/lionel.png");
 
-// define map sprites (Mario)
+// define map sprites
 loadSprite("block", "static/sprites/block.png")
 loadSprite("brick", "static/sprites/brick.png")
 loadSprite("coin", "static/sprites/coin.png")
@@ -44,9 +43,24 @@ loadSprite("pipe-top-right-side", "static/sprites/pipe-top-right-side.png")
 loadSprite("evil-shroom-1", "static/sprites/evil-shroom-1.png")
 loadSprite("mushroom", "static/sprites/mushroom.png")
 loadSprite("background-pink", "static/sprites/bg5.png")
-loadSprite("background-blue", "static/sprites/bg5b.jpg")
-loadSprite("background-red", "static/sprites/bg5c.jpg")
-loadSprite("background-green", "static/sprites/bg5d.jpg")
+loadSprite("background-blue", "static/sprites/bg5b.png")
+loadSprite("background-red", "static/sprites/bg5c.png")
+loadSprite("background-green", "static/sprites/bg5d.png")
+loadSprite("lionel-bg", "static/sprites/pixelated-lionel.jpg")
+
+// villain sprites
+loadSprite("bob-mardy", "static/sprites/bob-mardy-small.png")
+loadSprite("disco-inferno", "static/sprites/disco-inferno-small.png")
+loadSprite("rotten-johnny", "static/sprites/rotten-johnny-small.png")
+loadSprite("shanking-stevens", "static/sprites/shanking-stevens-small.png")
+loadSprite("shanking-stevens1", "static/sprites/shanking-stevens1-small.png")
+loadSprite("inhuman-plague", "static/sprites/the-inhuman-plague-small.png")
+loadSprite("whackem-jackson", "static/sprites/whackem-jackson-small.png")
+
+const layerColours = ["pink", "blue", "red", "green"]
+let musicTune = 0;
+const angles = [0, 90, 180, 360]
+const villains = [sprite("bob-mardy"), sprite("disco-inferno"), sprite("rotten-johnny"), sprite("shanking-stevens"), sprite("shanking-stevens1"), sprite("inhuman-plague"), sprite("whackem-jackson")];
 
 scene("game", () => {
 
@@ -56,13 +70,18 @@ scene("game", () => {
   let CURRENT_JUMP_FORCE = JUMP_FORCE
   const ENEMY_SPEED = 20
   const FALL_DEATH = 600
-  const layerColours = ["pink", "blue", "red", "green"]
-  let colourCounter = 0;
-  let musicTune = 0;
 
-  let isJumping = true
+  // // gets random villain
+  let randVillain = villains[Math.floor(Math.random() * villains.length)];
 
-  menu_music.stop()
+  // gets random viewing angle
+  let angle = angles[Math.floor(Math.random() * angles.length)];
+
+  // sets basic viewing angle
+  document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
+
+  // defines random background colour
+  let colour = layerColours[Math.floor(Math.random() * layerColours.length)];
 
   music.detune(musicTune)
 
@@ -70,118 +89,15 @@ scene("game", () => {
 
   camIgnore(["bg", "ui"])
 
+  // sets random background colour
   add([
     layer("bg"),
-    sprite("background-pink", {
+    sprite(`background-${colour}`, {
       width: width(),
       height: height(),
     })
-  ])
+  ]);
 
-  // define map (can make a longer array of these later)
-
-  /*
-  LIAM'S LEVEL DESIGN 
-  - Every 'brick' causing rotation, blocks don't,
-  - Collect 7 biscuits on each level to truly complete it
-
-  LEVEL 1
-  - intro of weird mechanics
-  - enemy
-  - collecting coins
-  - going into tea cup
-  */
-
-  map = [
-    '                              ',
-    '                              ',
-    '                              ',
-    '                              ',
-    '                              ',
-    '                              ',
-    '                       $    $ ',
-    '                        $   -+',
-    '          ^       $  $   $ $()',
-    'xx =========  ==  x  x   =====',
-  ]
-  
-
-  /* LEVEL 2
-  - harder version of level 1
-
-  map = [
-    '                    $          ',
-    '                 $             ',
-    '             $     =x          ',
-    '              =x               ',
-    '        $                      ',
-    '         xx                    ',
-    '                               ',
-    '    =x                       -+',
-    '              $   ^    $      ()',
-    'xx      xxx  xx  x=x   x    xxx',
-  ]
-
-  LEVEL 3
-  - introduce big head and big jump
-  
-   map = [
-    '                                     $ $     ',
-    '                                    $ $ $    ',
-    '                                             ',
-    'xx    x                             x x x    ',
-    '          $                                  ',
-    '              x          x                   ',
-    '                   =# =                      ',
-    '           x       ====       x              ',
-    '                                             ',
-    '                x         x                  ',
-    '                                             ',
-    '                     x                       ',
-    '                                             ',
-    '                         x                   ',
-    '                                             ',
-    '                                             ',
-    '                            x                ',
-    '                                -+           ',
-    '$                               ()           ',
-    'x   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx           ',
-  ]
-  
-  /// MORE LEVELS HERE /// 
-
-  FINAL LEVEL (This is insane btw)
-  
-   map = [
-    '                                                                                                            ',
-    '                                                                                                            ',
-    '                                                                                                            ',
-    '                                                                                                            ',
-    '                                                                                                            ',
-    '                                                                                                            ',
-    '                                                                                                            ',
-    '                                                                                                          -+',
-    '                                                    #                                                     ()',
-    'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   xx',
-  ]
-
-  
-  DAN'S LEVEL
-  map = [
-    '                                                                                               =*=%           ',
-    '                   -+                                                                      ^                  ',
-    '                 ^ () ^                                                                   xxxx                ',
-    '      =*=%     xxxxxxxxx                                                                                      ',
-    '            xx           $   $                                               *           ^     xxxxxxx        ',
-    '          xx              $              *           %                                  xx        -+          ',
-    '       xx                  $                                      ^               -+ ^            () $        ',
-    '    xx                       -+    xxx   xxx  xxx   xxx   xxx   xxxxx  -+    xxxxx()xxxx          xxxx        ',
-    '  xx                      *  ()                                        ()         xx                     -+   ',
-    'xx                     xxxxxxxx                                        xx                                ()   ',
-  ]
-
-  */
-  
   // define map level config - can make several of these for each level design
   const levelCfg = {
     width: 20,
@@ -195,12 +111,15 @@ scene("game", () => {
     '(': [sprite('pipe-left'), scale(0.5), solid()],
     ')': [sprite('pipe-right'), scale(0.5), solid()],
     '-': [sprite('pipe-top-left-side'), scale(0.5), solid()],
-    '+': [sprite('pipe-top-right-side'), scale(0.5), solid()],
+    '+': [sprite('pipe-top-right-side'), scale(0.5), solid(), 'pipe'],
     'r': [sprite('pipe-top-right-side'), scale(0.5), solid()],
     'b': [sprite('block'), solid()],
     '^': [sprite('evil-shroom-1'), solid(), 'dangerous'],
     '#': [sprite('mushroom'), 'mushroom', body()],
   }
+
+  // gets random map from map array
+  let map = maps[Math.floor(Math.random() * maps.length)];
 
   // creates game level
   const gameLevel = addLevel(map, levelCfg)
@@ -225,7 +144,7 @@ scene("game", () => {
       // makes lionel small once the timer has elapsed
       smallify() {
         play("jump")
-        this.scale = vec2(1)
+        this.scale = vec2(1.5)
         timer = 0
         isBig = false
         CURRENT_JUMP_FORCE = JUMP_FORCE
@@ -233,7 +152,7 @@ scene("game", () => {
       // makes lionel big when eating 'mushroom'
       biggify(time) {
         play("comedy_jump")
-        this.scale = vec2(2)
+        this.scale = vec2(3)
         timer = time
         isBig = true
         CURRENT_JUMP_FORCE = BIG_JUMP_FORCE
@@ -246,9 +165,22 @@ scene("game", () => {
     sprite("lionel"),
     pos(30, 0),
     body(),
+    scale(1.5),
     big(),
     origin('bot'),
   ]);
+
+  // spawns villain sprite at random point on the map
+  const villain = add([
+    randVillain,
+    pos(rand(100, gameLevel.width()) ,0),
+    'evil',
+    solid(),
+    body(),
+    origin('bot'),
+  ]);
+
+  console.log(villain.pos)
 
   // defines lionel sprites behaviour - is tracked by camera and falldeath action
   lionel.action(() => {
@@ -271,11 +203,20 @@ scene("game", () => {
     lionel.move(120, 0)
   });
 
-  // lionel jump (could use spacebar as well maybe?)
+  // lionel jump
   keyPress('space', () => {
     if (lionel.grounded()) {
       isJumping = true
       lionel.jump(CURRENT_JUMP_FORCE)
+
+      if (musicTune == 2000) {
+        musicTune = -1000
+      } else {
+        musicTune += 40
+      }
+
+      music.detune(musicTune)
+
       play("jumpy")
     }
   });
@@ -303,7 +244,7 @@ scene("game", () => {
 
   // action when lionel collides with mushroom sprite
   lionel.collides('mushroom', (m) => {
-    lionel.biggify(6)
+    lionel.biggify(10)
     destroy(m)
   });
 
@@ -313,41 +254,32 @@ scene("game", () => {
     destroy(c)
   });
 
-  // sets basic viewing angle
-  let angle = 0;
-  document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
+  lionel.collides('evil', () => {
+    camShake(4);
+  });
+
+  // action when lionel jumps on brick
+  lionel.collides('brick', (p) => {
+    // destroy(p)
+    // gameLevel.spawn('b', p.gridPos.sub(0, 0))
+    // spins canvas
+    // document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
+
+  });
 
   // action when lionel jumps on pipe
-  lionel.collides('brick', (p) => {
-    angle += 90;
-    destroy(p)
-    gameLevel.spawn('b', p.gridPos.sub(0, 0))
-    play("comedy_jump")
-    // spins canvas
-    document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
+  lionel.collides('pipe', () => {
+    go("game");
 
-    // updates background colour
-    colourCounter = (colourCounter + 1) % layerColours.length;
-    add([
-      layer("bg"),
-      sprite(`background-${layerColours[colourCounter]}`, {
-        width: width(),
-        height: height(),
-      })
-    ])
+  })
 
-    if (musicTune == 2000){
-      musicTune = -1000
-    } else {
-      musicTune += 40
-    }
-    console.log(musicTune)
-    music.detune(musicTune)
-  });
 });
 
 // defines gameover screen
 scene("gameover", () => {
+
+  // resets viewing angle
+  document.querySelector('canvas').style.setProperty("transform", "rotate(0deg)")
 
   music.stop()
   play("gameover_sound")
@@ -382,13 +314,25 @@ scene("gameover", () => {
 // defines starting screen
 scene("start", () => {
 
-  music.stop()
+  layers(['bg', 'obj'], 'obj')
+
+  camIgnore(["bg", "ui"])
+
+  // sets random background colour
+  add([
+    layer("bg"),
+    sprite("lionel-bg", {
+      width: width(),
+      height: height(),
+    })
+  ]);
 
   // starting screen text
   add([
     text("L I O N O I L", 20),
     pos(width() / 2, 120),
     origin("center"),
+    color(rgb(1, 1, 1))
   ]);
 
   // starting screen text 2
@@ -396,6 +340,7 @@ scene("start", () => {
     text("Press the space key to begin", 16),
     pos(width() / 2, 180),
     origin("center"),
+    color(rgb(1, 1, 1))
   ]);
 
   // press space to start
