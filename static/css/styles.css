@@ -3,10 +3,8 @@
 * {
   margin: 0;
   padding: 0;
-  color: black;                                            
-}
-
-h1 {
+  
+ h1 {
   font-family: 'Amiga Forever', sans-serif;
   text-align: center;
   color: #0dc8cd;
@@ -14,11 +12,12 @@ h1 {
 }
 
 h3 {
-  font-family: 'Amiga Forever', sans-serif;
+  font-family: "Amiga Forever", sans-serif;
 }
 
 p {
-  font-family: 'Amiga Forever Pro', sans-serif;
+  font-family: "Amiga Forever Pro", sans-serif;
+  font-size: small;
 }
 
 h3,
@@ -31,10 +30,12 @@ img {
   padding-top: 10px;
 }
 
-section {
+body {
   height: 100vh;
-  background-image: url("/static/sprites/bg5.png");
+  background-image: url("../sprites/bg5.png");
   background-size: contain;
+  background-attachment: fixed;
+  color: black;                                            
 }
 
 .wrapper {
@@ -76,15 +77,23 @@ section {
   backface-visibility: hidden;
   border: black 4px solid;
   border-radius: 10px;
+  transform: rotateX(0deg);
+  -webkit-perspective: 0;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0,0,0);
+  visibility:visible;
+  backface-visibility: hidden;
 }
 
 .card-front {
-  background-image: url("/static/sprites/bg5.png");
+  background-image: url("../sprites/bg5.png");
+
   background-size: contain;
 }
 
 .card-back {
-  background-color: #73CA75;
+  background-color: #73ca75;
+  /* background-color: #DFACDE; */
   color: azure;
   transform: rotateY(180deg);
 }
