@@ -1,7 +1,16 @@
+/* ------------------------------------- global text settings */
+
 * {
   margin: 0;
   padding: 0;
   color: black;                                            
+}
+
+h1 {
+  font-family: 'Amiga Forever', sans-serif;
+  text-align: center;
+  color: #0dc8cd;
+  padding-top: 3vw;
 }
 
 h3 {
@@ -35,6 +44,8 @@ section {
   max-width: 900px;
   margin: auto;
 }
+
+/* ------------------------------------- card settings */
 
 .card-container {
   background-color: transparent;
@@ -78,3 +89,23 @@ section {
   transform: rotateY(180deg);
 }
 
+/* ------------------------------------- leaderboard table settings */
+#scoreboard {
+  font-family: 'Amiga Forever', sans-serif;
+  padding-left: 40vw;
+  padding-right: 40vw;
+  padding-top: 1vw;
+}
+
+th {
+  color: yellow;
+}
+
+td {
+  color: white;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+}
