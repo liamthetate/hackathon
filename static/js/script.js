@@ -40,6 +40,10 @@ loadSprite("pipe-left", "static/sprites/pipe-left.png")
 loadSprite("pipe-right", "static/sprites/pipe-right.png")
 loadSprite("pipe-top-left-side", "static/sprites/pipe-top-left-side.png")
 loadSprite("pipe-top-right-side", "static/sprites/pipe-top-right-side.png")
+loadSprite("pipe-open-left-side", "static/sprites/pipe-open-left-side.png")
+loadSprite("pipe-open-right-side", "static/sprites/pipe-open-right-side.png")
+loadSprite("pipe-open-top-left-side", "static/sprites/pipe-open-top-left-side.png")
+loadSprite("pipe-open-top-right-side", "static/sprites/pipe-open-top-right-side.png")
 loadSprite("evil-shroom-1", "static/sprites/evil-shroom-1.png")
 loadSprite("mushroom", "static/sprites/mushroom.png")
 loadSprite("background-pink", "static/sprites/bg5.png")
@@ -104,19 +108,24 @@ scene("game", () => {
     '%': [sprite('question'), 'coin-surprise', solid()],
     '*': [sprite('question'), 'mushroom-surprise', solid()],
     '}': [sprite('unboxed'), solid()],
-    '(': [sprite('pipe-left'), scale(0.5), solid()],
-    ')': [sprite('pipe-right'), scale(0.5), solid()],
-    '-': [sprite('pipe-top-left-side'), scale(0.5), solid()],
-    '+': [sprite('pipe-top-right-side'), scale(0.5), solid(), 'pipe'],
-    'r': [sprite('pipe-top-right-side'), scale(0.5), solid()],
+    '(': [sprite('pipe-left'), scale(0.5), solid(), 'closed1'],
+    ')': [sprite('pipe-right'), scale(0.5), solid(), 'closed2'],
+    '-': [sprite('pipe-top-left-side'), scale(0.5), solid(), 'closed3'],
+    '+': [sprite('pipe-top-right-side'), scale(0.5), solid(), 'closed4'],
+
+    '1': [sprite('pipe-open-left-side'), scale(0.5), solid()],
+    '2': [sprite('pipe-open-right-side'), scale(0.5), solid()],
+    '3': [sprite('pipe-open-top-left-side'), scale(0.5), solid()],
+    '4': [sprite('pipe-open-top-right-side'), scale(0.5), solid(), 'pipe'],
+
     'b': [sprite('block'), solid()],
     '^': [sprite('evil-shroom-1'), solid(), 'dangerous'],
     '#': [sprite('mushroom'), 'mushroom', body()],
   }
 
   const scoreLabel = add([
-    text(playerScore),
-    pos(30,6),
+    text('Level ' + playerScore, 12),
+    pos(30, 6),
     layer('ui'),
     {
       value: playerScore,
@@ -128,6 +137,60 @@ scene("game", () => {
 
   // creates game level
   const gameLevel = addLevel(map, levelCfg)
+
+  // we need to find out how many 'coins' or 'biscuits' are on a map
+  let mapChars = map, o = {}
+
+  // this gets all of the characters within the map and turns it into an object listing the quantity of each
+  mapChars.forEach(m => m.split('').forEach(e => o[e] = (o[e] || 0) + 1));
+  console.log(o)
+
+  // if no % on the map this is set to 0
+  if (o['%'] == undefined) {
+    o['%'] = 0;
+  }
+
+  // if no $ on the map this is set to 0
+  if (o['$'] == undefined) {
+    o['$'] = 0;
+  }
+
+  // creates biscuits variable number based on how many biscuit/biscuit boxes are present in the map
+  // this then goes down by one number each time a biscuit is eaten by the player, allowing them to
+  // exit the map once all are eaten
+  if ((o['%'] + o['$']) > 0) {
+    biscuits = (o['%'] + o['$']);
+  } else {
+    biscuits = 0;
+  }
+
+  // displays biscuitcount on screen
+  let biscuitCount = add([
+    text(biscuits + ' biscuit' +`${biscuits != 1 ? 's' : ''}` + ' left in this level!', 10),
+    pos(30, 36),
+    layer('ui'),
+    {
+      value: biscuits,
+    }
+  ])
+
+  function destroyPipe(num, item) {
+    every(`closed${num}`, (obj) => {
+      destroy(obj);
+      gameLevel.spawn(item, obj.gridPos.sub(0, 0));
+    });
+  }
+
+  function checkBiscuits() {
+    if (biscuits == 0) {
+      destroyPipe(1, '1');
+      destroyPipe(2, '2');
+      destroyPipe(3, '3');
+      destroyPipe(4, '4');
+    }
+  }
+
+  checkBiscuits();
 
   // function that checks if a player is 'big' or not
   function big() {
@@ -189,11 +252,11 @@ scene("game", () => {
 
   // makes villain character jump continuously once grounded
   villain.action(() => {
-    if (villain.grounded()){
+    if (villain.grounded()) {
       villain.jump(150);
     }
   })
-  
+
   lionel.collides('evil', (e) => {
     if (lionel.pos.y < e.pos.y) {
       lionel.jump(JUMP_FORCE);
@@ -271,22 +334,28 @@ scene("game", () => {
   lionel.collides('coin', (c) => {
     play("death_scream");
     destroy(c);
+    biscuits -= 1;
+    checkBiscuits();
+    console.log(biscuits)
+
+    biscuitCount.text = biscuits + ' biscuit' +`${biscuits != 1 ? 's' : ''}` + ' left in this level!';
   });
 
   // action when lionel jumps on brick
   lionel.collides('brick', (p) => {
-    // destroy(p)
-    // gameLevel.spawn('b', p.gridPos.sub(0, 0))
+    destroy(p)
+    gameLevel.spawn('b', p.gridPos.sub(0, 0))
     // spins canvas
-    // document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
+    document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
 
   });
 
   // action when lionel jumps on pipe
   lionel.collides('pipe', () => {
-    playerScore += 1;
-    go("game");
-
+    if (biscuits == 0) {
+      playerScore += 1;
+      go("game");
+    }
   });
 
 });

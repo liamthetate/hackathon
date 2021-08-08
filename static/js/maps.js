@@ -4,11 +4,7 @@
 
 const maps = [
 
-  // LEVEL 1
-  // - intro of weird mechanics
-  // - enemy
-  // - collecting coins
-  // - going into tea cup
+  // 2 easy test levels
 
   [
     '                              ',
@@ -17,10 +13,42 @@ const maps = [
     '                              ',
     '                              ',
     '                              ',
-    '                       $    $ ',
-    '                        $   -+',
-    '          ^       $  $   $ $()',
-    'xx =========  ==  x  x   =====',
+    '                              ',
+    '                            -+',
+    '                            ()',
+    'xx =========  ==  x==x========',
+  ],
+
+  [
+    '                              ',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                            -+',
+    '       $$                   ()',
+    'xx =========  ==  x==x========',
+  ],
+
+  // LEVEL 1
+  // - intro of weird mechanics
+  // - enemy
+  // - collecting coins
+  // - going into tea cup
+
+  [
+  '                              ',
+  '                              ',
+  '                              ',
+  '                              ',
+  '                              ',
+  '                              ',
+  '                       $    $ ',
+  '                        $   -+',
+  '          ^       $  $   $ $()',
+  'xx =========  ==  x  x   =====',
   ],
 
   // LEVEL 2
