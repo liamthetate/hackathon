@@ -47,6 +47,12 @@ img {
 	align-items: center;
 	padding-top: 10px;
 }
+body {
+	background-image: url("../sprites/bg5.png");
+	background-size: contain;
+	background-attachment: fixed;
+	color: black;
+}
 .wrapper {
 	display: flex;
 	flex-wrap: wrap;
@@ -182,6 +188,24 @@ li a:hover:not(.active) {
 }
 .active {
 	background-color: #73ca75;
+}
+* {
+	margin: 0;
+}
+html {
+	display: flex;
+	justify-content: center;
+	background: url("../images/retro-cloud.gif");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	position: relative;
+}
+canvas {
+	display: flex;
+	margin-top: 10vh;
+	height: 80vh;
 }
 .form-style {
 	font-family: 'Amiga Forever', sans-serif;
