@@ -650,7 +650,7 @@ scene("game", () => {
   }
 
   const scoreLabel = add([
-    text('Level ' + playerScore, 12),
+    text('Score ' + playerScore, 12),
     pos(30, 6),
     layer('ui'),
     {
@@ -669,7 +669,6 @@ scene("game", () => {
 
   // this gets all of the characters within the map and turns it into an object listing the quantity of each
   mapChars.forEach(m => m.split('').forEach(e => o[e] = (o[e] || 0) + 1));
-  console.log(o)
 
   // if no % on the map this is set to 0
   if (o['%'] == undefined) {
@@ -795,7 +794,6 @@ scene("game", () => {
       camShake(2);
       destroy(e);
     } else {
-      console.log("You Lose");
       lionel.destroy();
       music.detune(0)
       go("gameover");
@@ -806,7 +804,6 @@ scene("game", () => {
   lionel.action(() => {
     camPos(lionel.pos)
     if (lionel.pos.y >= FALL_DEATH) {
-      console.log("You Lose");
       lionel.destroy();
       music.detune(0)
       go("gameover");
@@ -1036,20 +1033,20 @@ scene("start", () => {
       origin("center"),
       color(rgb(1, 1, 1))
     ]);
-  });
-  keyPress("l", () => {
-    location="https://lionoil.herokuapp.com/leaderboard"
-  });
-  keyPress("c", () => {
-    location="https://lionoil.herokuapp.com/cards"
-  });
-  keyPress("s", () => {
-    location="https://lionoil.herokuapp.com/story"
-  });
-   // press space to start
-   keyPress("space", () => {
-    go("game");
-    music.play()
+    keyPress("l", () => {
+      location="https://lionoil.herokuapp.com/leaderboard"
+    });
+    keyPress("c", () => {
+      location="https://lionoil.herokuapp.com/cards"
+    });
+    keyPress("s", () => {
+      location="https://lionoil.herokuapp.com/story"
+    });
+     // press space to start
+     keyPress("space", () => {
+      go("game");
+      music.play()
+    });
   });
 
 });
