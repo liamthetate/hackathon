@@ -147,5 +147,9 @@ IP = 0.0.0.0
 
 ### Credits
 
+* [THis Video](https://www.freecodecamp.org/news/how-to-build-mario-zelda-and-space-invaders-with-kaboom-js/) - used to help learn Kaboom
+* [Lionel Richie 8bit music](https://www.youtube.com/watch?v=ovo6zwv6DX4) - used for soundtrack
+
+### Acknowledgements
 * We would like to thank our amazing mentor Séan Murphy who supported us throughout the event 🥳 Thank you for helping us have a great time!
 * We also want to thank Code Institute for putting on such a fun Hackathon!
