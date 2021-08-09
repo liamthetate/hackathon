@@ -447,7 +447,7 @@ scene("start", () => {
   ]);
 
   // starting screen text
-  add([
+  let gameName = add([
     text("L I O N O I L", 20),
     pos(width() / 2, 120),
     origin("center"),
@@ -455,20 +455,54 @@ scene("start", () => {
   ]);
 
   // starting screen text 2
-  add([
-    text("Press the space key to begin", 16),
+  let firstInstruction = add([
+    text("Press Enter key to begin", 16),
     pos(width() / 2, 180),
     origin("center"),
     color(rgb(1, 1, 1))
   ]);
 
+  keyPress("enter", () => {
+    gameName.text = "";
+    firstInstruction.text = "";
+    add([
+      text("Press Space key to start Game", 16),
+      pos(width() / 2, 140),
+      origin("center"),
+      color(rgb(1, 1, 1))
+    ]);
+    add([
+      text("Press C key to view the cards", 16),
+      pos(width() / 2, 180),
+      origin("center"),
+      color(rgb(1, 1, 1))
+    ]);
+    add([
+      text("Press L key to view the leaderboards", 16),
+      pos(width() / 2, 220),
+      origin("center"),
+      color(rgb(1, 1, 1))
+    ]);
+    add([
+      text("Press S key to view story", 16),
+      pos(width() / 2, 260),
+      origin("center"),
+      color(rgb(1, 1, 1))
+    ]);
+  });
+  keyPress("l", () => {
+    location="https://lionoil.herokuapp.com/leaderboard"
+  });
+  keyPress("c", () => {
+    location="https://lionoil.herokuapp.com/cards"
+  });
+
+});
   // press space to start
   keyPress("space", () => {
     go("game");
     music.play()
   });
-
-})
 
 // default action on page load - start screen
 go("start")
