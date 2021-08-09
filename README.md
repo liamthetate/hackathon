@@ -70,7 +70,7 @@ Other design touchpoints are inspired by Lionel Richie's early back catalogue an
 ![cover](https://user-images.githubusercontent.com/566086/128713137-0ae472ff-9d89-4df6-b4de-a13ee7641c26.jpeg)
 
 #### Wireframes
-[Link to wireframes is here](static/css/images/wireframes)
+[Link to wireframes is here](https://github.com/liamthetate/hackathon/tree/main/static/images/wireframes)
 
 
 ### Features
