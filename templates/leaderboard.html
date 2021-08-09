@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="static/css/styles.css" />
+    <link href="https://fonts.cdnfonts.com/css/amiga-forever" rel="stylesheet" />
+  </head>
+  <body>
+      <section>
+        <!-- leaderboard header -->
+        <h1>Leaderboard</h1>   
+        <!-- leaderboard -->
+       <table div id="scoreboard">
+            <tr>
+               <th>Name</th>
+               <th>Score</th>
+            </tr>
+            {% for score in scores %}
+            <tr>
+                <td>{{ score.name }}</td>
+                <td>{{ score.score }}</td>
+             </tr>
+            {% endfor %}
+       </table>
+      </section>
+    </body>
+</html>
+
