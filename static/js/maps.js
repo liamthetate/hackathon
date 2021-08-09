@@ -16,7 +16,7 @@ const maps = [
     '                              ',
     '                            -+',
     '                            ()',
-    '== ===x=====  =x  x==x=====x==',
+    '== =x=x=x=x=  =x  x==x=====x==',
   ],
 
   [
@@ -29,7 +29,7 @@ const maps = [
     '                              ',
     '                            -+',
     '       $$                   ()',
-    '== ====xx===  xx  x==x========',
+    '== ====xx===  xx  x==x===x====',
   ],
 
   // LEVEL 1
@@ -48,7 +48,7 @@ const maps = [
     '                       $    $ ',
     '                        $   -+',
     '          ^       $  $   $ $()',
-    '== =========  ==  x  x   =====',
+    '== ==x======  x=  x  x   =====',
   ],
 
   // LEVEL 2
@@ -60,11 +60,11 @@ const maps = [
     '             $     =x          ',
     '              =x               ',
     '        $                      ',
-    '         xx                    ',
+    '         =x                    ',
     '                               ',
     '    =x                       -+',
     '              $   ^    $     ()',
-    '==      xxx  xx  x=x   x    xxx',
+    '==      xxx  =x  x=x   x    xxx',
   ],
 
   // LEVEL 3
@@ -79,9 +79,9 @@ const maps = [
     '              x          x                   ',
     '                   =# =                      ',
     '           x       ====       x              ',
-    '                                             ',
+    '            =x                               ',
     '                x         x                  ',
-    '                                             ',
+    '                 =x                           ',
     '                     x                       ',
     '                                             ',
     '                         x                   ',
@@ -90,7 +90,7 @@ const maps = [
     '                            x                ',
     '                                -+           ',
     '$                               ()           ',
-    'x   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx           ',
+    'x   x=x=xxxxx==xxxxxxxx=xx=xxxxxxx           ',
   ],
 
   /// MORE LEVELS HERE /// 
@@ -105,14 +105,14 @@ const maps = [
   [
     '                                                                                               =*=%           ',
     '                                                                                           ^                  ',
-    '                 ^   ^                                                                    xxxx                ',
-    '               xxxxxxxxx                                                                                      ',
-    '            xx           $   $                                               *           ^                    ',
-    '          xx              $              *           %                                  xx                    ',
-    '       xx                  $                                      ^                  ^               $        ',
-    '    xx                             xxx   xxx  xxx   xxx   xxx   xxxxx        xxxxxxxxxxx          xxxx        ',
-    '  xx                      *                                                       xx                     -+   ',
-    '==                     xxxxxxxx                                        xx                                ()   ',
+    '                 ^   ^                                                                    x=x=                ',
+    '               xx=x=xxxx                                                                                      ',
+    '            x=           $   $                                               *           ^                    ',
+    '          =x              $              *           %                                  x=                    ',
+    '       x=                  $                                      ^                  ^               $        ',
+    '    =x                             =xx   =xx  x=x   x=x   =xx   xxx=x        xxxx=x=xxxx          x=x=        ',
+    '  =x                      *                                                       xx                     -+   ',
+    '==                     x=xx=x=x                                        =x                                ()   ',
   ],
   // DAN'S NEXT LEVEL
   // - Bigger jumps and dependency on big head
@@ -120,17 +120,17 @@ const maps = [
   [
     '                                                                                                                                ',
     '                                                                                                                                ',
-    '             =*=%                  =*===                  =*===%                    =*===                    =*===              ',
+    '             =*=%                  =*x=x                  x*=x=%                    x*=x=                    =*=x=              ',
     '                                                                                                                                ',
     '                                                                                                                                ',
     '                           $     $$  ^           $      $$  ^            $       $$  ^             $        $$  ^               ',
-    '      xxxx  xxxxxxxxx    xxxx    xxxxxxxxx     xxxx     xxxxxxxxx      xxxx      xxxxxxxxx       xxxx       xxxxxxxxx           ',
+    '      x=x=  x=x=x=x=x    x=x=    x=x=x=x=x     =x=x     x=x=x=x=x      x=x=      x=x=x=x=x       =x=x       x=x=xx=x=           ',
     '    x                                                                                                                           ',
     '  x                                                                                                                         -+  ',
     '==                                                                                                                          ()  ',
   ],
 
-  /* this level only works if it rotates all the time
+  // this level only works if it rotates all the time
   // FINAL LEVEL (This is insane btw)
 
   [
@@ -145,7 +145,7 @@ const maps = [
     '                                                    #                                                     ()',
     '==xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   xx',
   ],
-/* 
+
 
   /* // these levels don't quite work due to bug - charcter can walk over single gaps
   [
@@ -258,39 +258,39 @@ const maps = [
     "                                                       ",
     "==                                                     ",
     "                                                       ",
-    "   xx                                                  ",
+    "   x=                                                  ",
     "                                                       ",
-    "       xx                        $                     ",
-    "                                xx  #                  ",
-    "           xx               xx      xx                 ",
+    "       x=                        $                     ",
+    "                                x=  #                  ",
+    "           x=               =x      x=                 ",
     "                    $   =*              x%  $          ",
-    "                    xx                      xx         ",
-    "                        xx              xx             ",
-    "                            xx  $   xx                 ",
+    "                    x=                      =x         ",
+    "                        =x              =x             ",
+    "                            =x  $   =x                 ",
     "                                x%                     ",
     "                                                     -+",
     "                                                     ()",
-    "xx  xx  xx  xx  xx  xx  xx  xx  xx  xx  xx  xx xx xx xx",
+    "x=  x=  =x  x=  x=  x=  x=  x=  x=  x=  x=  x= x= x= x=",
   ],
   
   [
     "==                                                     ",
-    "    xx                                                 ",
-    "        xx                                             ",
-    "            xx                                         ",
-    "                  xxxxxx=*xxxxxxxxxx%xxxxxxxxxxxxxxx   ",
+    "    xx=                                                 ",
+    "        x=                                             ",
+    "            =x                                         ",
+    "                  =x=x=x=*=x=x=x=x=x%=x=x=x=x=x=x=x=   ",
     "            x                                      $x  ",
-    "                  xxxxxxxxxxxxxxxxxxxx%xxxxxxxxxxxxx   ",
+    "                  ================%=================   ",
     "                  x$                                   ",
-    "          x       xxxxxxxxxxxxx%xxxxxxxxxxxxxxxxxxxx   ",
+    "          x       =============%====================   ",
     "                                                  $x   ",
-    "       x          xxxxxxxxxxxxxxxxxxxx%xxxxxxxxxxxxx   ",
+    "       x          =================%================   ",
     "                  x$                                   ",
-    "         x        xxxxxxxxx%xxxxxxxxxxxxxxxxxxxxxxxx   ",
+    "         x        =========%=========================  ",
     "            x                                      $x  ",
-    "              x   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   ",
+    "              x   ==================================   ",
     "                  x$                                   ",
-    "                  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   ",
+    "                  ==================================   ",
     "                                                     -+",
     "                                                     ()",
     "                                                     xx",

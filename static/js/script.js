@@ -6,6 +6,8 @@ const k = kaboom({
   fullscreen: true, // if fullscreen
   crisp: true, // if pixel crisp (for sharp pixelated games)
   debug: true, // debug mode
+  width: 240,
+  height: 360,
 });
 
 const gameCanvas = document.getElementsByTagName('canvas')[0]
@@ -71,7 +73,14 @@ const angles = [0, 90, 180]
 const villains = [sprite("bob-mardy"), sprite("disco-inferno"), sprite("rotten-johnny"), sprite("shanking-stevens"), sprite("shanking-stevens1"), sprite("inhuman-plague"), sprite("whackem-jackson")];
 let playerScore = 0;
 
+// added this back in
+let musicTune = 0
+
 scene("game", () => {
+
+  if (musicTune != 0) {
+    musicTune = 0
+    }
 
   const JUMP_FORCE = 360
   const BIG_JUMP_FORCE = 550
@@ -183,6 +192,9 @@ scene("game", () => {
     every(`closed${num}`, (obj) => {
       destroy(obj);
       gameLevel.spawn(item, obj.gridPos.sub(0, 0));
+      if (musicTune != 0) {
+        musicTune = 0
+        };
     });
   }
 
@@ -214,23 +226,25 @@ scene("game", () => {
       isBig() {
         return isBig
       },
-      // makes lionel small once the timer has elapsed
+// makes lionel small once the timer has elapsed
       smallify() {
         play("jump")
         this.scale = vec2(1)
         timer = 0
         isBig = false
         CURRENT_JUMP_FORCE = JUMP_FORCE
-        music.detune(0)
+        if (musicTune != 0) {
+          music.detune(0)
+          }
       },
-      // makes lionel big when eating 'mushroom'
+  // makes lionel big when eating 'mushroom'
       biggify(time) {
         play("comedy_jump")
         this.scale = vec2(2)
         timer = time
         isBig = true
         CURRENT_JUMP_FORCE = BIG_JUMP_FORCE
-        music.detune(250)
+        musicTune -= 2000
       }
     }
   }
@@ -271,6 +285,7 @@ scene("game", () => {
     } else {
       console.log("You Lose");
       lionel.destroy();
+      music.detune(0)
       go("gameover");
     }
   });
@@ -281,6 +296,7 @@ scene("game", () => {
     if (lionel.pos.y >= FALL_DEATH) {
       console.log("You Lose");
       lionel.destroy();
+      music.detune(0)
       go("gameover");
     }
     if (lionel.grounded()) {
@@ -341,7 +357,6 @@ scene("game", () => {
     destroy(c);
     biscuits -= 1;
     checkBiscuits();
-    console.log(biscuits)
 
     biscuitCount.text = biscuits + ' biscuit' +`${biscuits != 1 ? 's' : ''}` + ' left in this level!';
   });
@@ -351,7 +366,7 @@ scene("game", () => {
     destroy(p)
     gameLevel.spawn('b', p.gridPos.sub(0, 0))
     // spins canvas
-    //angle += 90;
+    angle += 90;
     document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
     /*
     // updates background colour
@@ -363,13 +378,9 @@ scene("game", () => {
         height: height(),
       })
     ])
-
-    if (musicTune == 2000){
-      musicTune = -1000
-    } else {
-      musicTune += 40
-    }
     */
+    musicTune += 40
+    music.detune(musicTune)
   });
 
   // action when lionel jumps on pipe
@@ -388,6 +399,7 @@ scene("gameover", () => {
   // resets viewing angle
   document.querySelector('canvas').style.setProperty("transform", "rotate(0deg)")
 
+  music.detune(0)
   music.stop()
   play("gameover_sound")
 
@@ -428,6 +440,9 @@ scene("gameover", () => {
   keyPress("space", () => {
     playerScore = 0;
     go("game");
+    if (musicTune != 0) {
+      musicTune = 0
+      }
     music.play()
   });
 
