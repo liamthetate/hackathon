@@ -3,6 +3,28 @@
 	margin: 0;
 	padding: 0;
 }
+html {
+	display: flex;
+	justify-content: center;
+	background: url("../images/retro-cloud.gif");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	position: relative;
+}
+body {
+	background-image: url("../sprites/bg5.png");
+	background-size: contain;
+	background-attachment: fixed;
+	color: black;
+}
+canvas {
+	display: flex;
+  margin-left: 100px;
+  margin-bottom: 10vh;
+	height: 80vh;
+}
 h1 {
 	text-align: center;
 	color: #0dc8cd;
@@ -210,5 +232,4 @@ canvas {
 }
 .btn-dark {
 	margin-left: 45%;
-	;
 }
