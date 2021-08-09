@@ -444,8 +444,10 @@ scene("gameover", () => {
   //   color(rgb(1, 1, 1)),
   //   color(rgb(0, 0, 0)),
   // ]);
-  let playerScoreForHTML = document.getElementById('score').value = playerScore
-  document.getElementById('score').innerHTML = playerScoreForHTML;
+ 
+
+  $("#score").val(playerScore);
+  document.getElementById('score').innerHTML = playerScore.toString();
   gameCanvas.classList.add("d-none");
   let scoreForm = document.querySelector('form');
   scoreForm.classList.remove("d-none");
@@ -519,12 +521,13 @@ scene("start", () => {
     location="https://lionoil.herokuapp.com/cards"
   });
 
-});
-  // press space to start
-  keyPress("space", () => {
+   // press space to start
+   keyPress("space", () => {
     go("game");
     music.play()
   });
+
+});
 
 // default action on page load - start screen
 go("start")
