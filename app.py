@@ -21,9 +21,12 @@ def index():
 @app.route('/add_score', methods=['GET', 'POST'])
 def add_score():
     if request.method == 'POST':
-        scores = mongo.db.scores
-        scores.insert_one(request.form.to_dict())
-        return redirect(url_for('index'))
+        score = {
+            "name": request.form.get("name"),
+            "score": request.form.get("score"),
+        }
+        mongo.db.scores.insert_one(score)
+        return redirect(url_for('leaderboard'))
     return render_template('index.html')
 
 @app.route("/cards")

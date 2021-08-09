@@ -3,13 +3,14 @@
 <a href="{{ url_for('cards') }}" id="cards">cards</a>
 <a href="{{ url_for('leaderboard') }}" id="leaderboard">leaderboard</a>
 
-        <form class="d-none m-auto" action="{{ url_for('add_score') }}" method="POST">
-          <div class="mb-3">
-            <label for="name" class="form-label font">PLEASE ENTER YOUR NAME</label>
-            <input type="text" oninput="this.value = this.value.toUpperCase()" name="name" class="form-control" id="name" aria-describedby="name">
+        <form class="d-none m-auto form-style" action="{{ url_for('add_score') }}" method="POST">
+          <div class="mb-3 text-center">
+             <label for="name" class="form-label font">PLEASE ENTER YOUR NAME</label>
+            <input type="text" oninput="this.value = this.value.toUpperCase()" name="name" class="form-control text-center" id="name" aria-describedby="name">
           </div>
-          <div class="mb-3">
-            <label for="score" class="form-label font">YOUR SCORE: <span name="score" id="score"></span> </label>
+          <div class="mb-3 score-input text-center">
+            <label for="score" class="form-label font">YOUR SCORE: </label>
+            <input type="text" id="score" name="score" value="">
           </div>
           <button type="submit" class="btn btn-dark">Submit</button>
         </form>
