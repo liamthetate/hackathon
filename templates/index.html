@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-<a href="{{ url_for('cards') }}" id="cards">cards</a>
-<a href="{{ url_for('leaderboard') }}" id="leaderboard">leaderboard</a>
-<a href="{{ url_for('story') }}" id="leaderboard">story</a>
 
         <form class="d-none m-auto form-style" action="{{ url_for('add_score') }}" method="POST">
           <div class="mb-3 text-center">
@@ -15,4 +12,10 @@
           </div>
           <button type="submit" class="btn btn-dark">Submit</button>
         </form>
+{% endblock %}
+
+{% block kaboomscript %}
+<script src="https://kaboomjs.com/lib/0.6.0/kaboom.js"></script>
+<script src="{{url_for('static', filename='js/maps.js')}}"></script>
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
 {% endblock %}

@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIONOIL</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="https://fonts.cdnfonts.com/css/amiga-forever" rel="stylesheet" />
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
 </head>
+
 <body>
+    <nav id="menu">
+        <ul>
+            <li><a href="{{ url_for('index') }}">Start</a></li>
+            <li><a href="{{ url_for('story') }}">The Story So Far</a></li>
+            <li><a href="{{ url_for('cards') }}" class="active">Bad guys</a></li>
+            <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+        </ul>
+    </nav>
     {% block content %}{% endblock %}
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-    <script src="https://kaboomjs.com/lib/0.6.0/kaboom.js"></script>
-    <script src="{{url_for('static', filename='js/maps.js')}}"></script>
-    <script src="{{url_for('static', filename='js/script.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+    {% block kaboomscript %}
+    {% endblock %} 
+
 </body>
+
 </html>
