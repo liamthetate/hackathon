@@ -174,3 +174,35 @@ footer {
   height: 40px;
 }
 
+/*------------------------------------------- navbar css */
+
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 14%;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+  font-family: "Amiga Forever Pro", sans-serif;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: left;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #73ca75;
+}
+
