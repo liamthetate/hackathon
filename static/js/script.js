@@ -522,7 +522,9 @@ scene("start", () => {
   keyPress("c", () => {
     location="https://lionoil.herokuapp.com/cards"
   });
-
+  keyPress("s", () => {
+    location="https://lionoil.herokuapp.com/story"
+  });
    // press space to start
    keyPress("space", () => {
     go("game");

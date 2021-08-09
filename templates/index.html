@@ -2,6 +2,7 @@
 {% block content %}
 <a href="{{ url_for('cards') }}" id="cards">cards</a>
 <a href="{{ url_for('leaderboard') }}" id="leaderboard">leaderboard</a>
+<a href="{{ url_for('story') }}" id="leaderboard">story</a>
 
         <form class="d-none m-auto form-style" action="{{ url_for('add_score') }}" method="POST">
           <div class="mb-3 text-center">
