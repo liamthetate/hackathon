@@ -96,11 +96,16 @@ const maps = [
   /// MORE LEVELS HERE /// 
 
   // DAN'S LEVEL
+  // - Steps
+  // - Slide
+  // - Power jump
+  // - Crazy steps 
+  // - Out
 
   [
     '                                                                                               =*=%           ',
     '                                                                                           ^                  ',
-    '                 ^    ^                                                                   xxxx                ',
+    '                 ^   ^                                                                    xxxx                ',
     '               xxxxxxxxx                                                                                      ',
     '            xx           $   $                                               *           ^                    ',
     '          xx              $              *           %                                  xx                    ',
@@ -109,6 +114,21 @@ const maps = [
     '  xx                      *                                                       xx                     -+   ',
     'xx                     xxxxxxxx                                        xx                                ()   ',
   ],
+// DAN'S NEXT LEVEL
+// - Bigger jumps and dependency on big head
+
+  [
+    '             ',
+    '        ',
+    '             =*=%                  =*===                  =*===%                    =*===                    =*===              ',
+    '                                                                                                                                ',
+    '                                                                                                                                ',
+    '                           $     $$  ^           $      $$  ^            $       $$  ^             $        $$  ^               ',
+    '      xxxx  xxxxxxxxx    xxxx    xxxxxxxxx     xxxx     xxxxxxxxx      xxxx      xxxxxxxxx       xxxx       xxxxxxxxx           ',
+    '    x                                                                                                                           ',
+    '  x                                                                                                                         -+  ',
+    'xx                                                                                                                          ()  ',
+  ], 
 
   // FINAL LEVEL (This is insane btw)
 
