@@ -118,8 +118,8 @@ const maps = [
 // - Bigger jumps and dependency on big head
 
   [
-    '             ',
-    '        ',
+    '                                                                                                                                ',
+    '                                                                                                                                ',
     '             =*=%                  =*===                  =*===%                    =*===                    =*===              ',
     '                                                                                                                                ',
     '                                                                                                                                ',
