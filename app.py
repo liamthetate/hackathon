@@ -38,6 +38,10 @@ def leaderboard():
     scores = mongo.db.scores.find().sort("score", -1)
     return render_template("leaderboard.html", scores=scores)
 
+@app.route("/story")
+def story():
+    return render_template("story.html")
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
     port=int(os.environ.get("PORT")),
