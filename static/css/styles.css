@@ -5,8 +5,7 @@
   padding: 0;
 }
 
- h1 {
-  font-family: 'Amiga Forever', sans-serif;
+h1 {
   text-align: center;
   color: #0dc8cd;
   padding-top: 3vw;
@@ -14,11 +13,13 @@
 
 h3 {
   font-family: "Amiga Forever", sans-serif;
+  color: black;
 }
 
 p {
   font-family: "Amiga Forever Pro", sans-serif;
   font-size: small;
+  color: black;
 }
 
 .card-back h3,
@@ -26,6 +27,7 @@ p {
   padding: 15px;
   color: black;
 }
+
 
 img {
   align-items: center;
@@ -37,7 +39,7 @@ body {
   background-image: url("../sprites/bg5.png");
   background-size: contain;
   background-attachment: fixed;
-  color: black;                                            
+  color: black;
 }
 
 .wrapper {
@@ -83,8 +85,8 @@ body {
   perspective: 0;
   -webkit-perspective: 0;
   -webkit-backface-visibility: hidden;
-  -webkit-transform: translate3d(0,0,0);
-  visibility:visible;
+  -webkit-transform: translate3d(0, 0, 0);
+  visibility: visible;
   backface-visibility: hidden;
 }
 
@@ -99,9 +101,10 @@ body {
   transform: rotateY(180deg);
 }
 
+
 /* ------------------------------------- leaderboard table settings */
 #scoreboard {
-  font-family: 'Amiga Forever', sans-serif;
+  font-family: "Amiga Forever", sans-serif;
   padding-left: 40vw;
   padding-right: 40vw;
   padding-top: 1vw;
@@ -115,7 +118,59 @@ td {
   color: white;
 }
 
-th, td {
+th,
+td {
   padding: 15px;
   text-align: left;
 }
+
+/* ------------------------------------- story page settings */
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.story-page {
+  text-align: center;
+  letter-spacing: 2px;
+  line-height: 1.5;
+  background-color: #73CA75;
+  border: 4px solid black;
+  border-radius: 10px;
+  padding-bottom: 20px;
+}
+
+.story-page a {
+  color: #F50707;
+}
+
+.story-page p {
+  margin: 15px;
+}
+header h1 {
+  font-family: "Amiga Forever", sans-serif;
+  color: black;
+}
+
+.story-page h3 {
+  padding: 15px;
+}
+
+.story-page img {
+  padding: 10px;
+}
+header p {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 15px;
+}
+
+.story, .object-of-game, .movement, .scoring {
+  margin: 10px;
+}
+
+footer {
+  height: 40px;
+}
+
