@@ -16,7 +16,7 @@ const maps = [
     '                              ',
     '                            -+',
     '                            ()',
-    'xx =========  ==  x==x========',
+    '== ===x=====  =x  x==x=====x==',
   ],
 
   [
@@ -29,7 +29,7 @@ const maps = [
     '                              ',
     '                            -+',
     '       $$                   ()',
-    'xx =========  ==  x==x========',
+    '== ====xx===  xx  x==x========',
   ],
 
   // LEVEL 1
@@ -39,16 +39,16 @@ const maps = [
   // - going into tea cup
 
   [
-  '                              ',
-  '                              ',
-  '                              ',
-  '                              ',
-  '                              ',
-  '                              ',
-  '                       $    $ ',
-  '                        $   -+',
-  '          ^       $  $   $ $()',
-  'xx =========  ==  x  x   =====',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                              ',
+    '                       $    $ ',
+    '                        $   -+',
+    '          ^       $  $   $ $()',
+    '== =========  ==  x  x   =====',
   ],
 
   // LEVEL 2
@@ -64,7 +64,7 @@ const maps = [
     '                               ',
     '    =x                       -+',
     '              $   ^    $     ()',
-    'xx      xxx  xx  x=x   x    xxx',
+    '==      xxx  xx  x=x   x    xxx',
   ],
 
   // LEVEL 3
@@ -74,7 +74,7 @@ const maps = [
     '                                     $ $     ',
     '                                    $ $ $    ',
     '                                             ',
-    'xx    x                             x x x    ',
+    '==    x                             x x x    ',
     '          $                                  ',
     '              x          x                   ',
     '                   =# =                      ',
@@ -112,10 +112,10 @@ const maps = [
     '       xx                  $                                      ^                  ^               $        ',
     '    xx                             xxx   xxx  xxx   xxx   xxx   xxxxx        xxxxxxxxxxx          xxxx        ',
     '  xx                      *                                                       xx                     -+   ',
-    'xx                     xxxxxxxx                                        xx                                ()   ',
+    '==                     xxxxxxxx                                        xx                                ()   ',
   ],
-// DAN'S NEXT LEVEL
-// - Bigger jumps and dependency on big head
+  // DAN'S NEXT LEVEL
+  // - Bigger jumps and dependency on big head
 
   [
     '                                                                                                                                ',
@@ -127,9 +127,10 @@ const maps = [
     '      xxxx  xxxxxxxxx    xxxx    xxxxxxxxx     xxxx     xxxxxxxxx      xxxx      xxxxxxxxx       xxxx       xxxxxxxxx           ',
     '    x                                                                                                                           ',
     '  x                                                                                                                         -+  ',
-    'xx                                                                                                                          ()  ',
-  ], 
+    '==                                                                                                                          ()  ',
+  ],
 
+  /* this level only works if it rotates all the time
   // FINAL LEVEL (This is insane btw)
 
   [
@@ -142,7 +143,157 @@ const maps = [
     '                                                                                                            ',
     '                                                                                                          -+',
     '                                                    #                                                     ()',
-    'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   xx',
+    '==xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   xx',
+  ],
+/* 
+
+  /* // these levels don't quite work due to bug - charcter can walk over single gaps
+  [
+    "											*															^					*	 	",
+    "	= =	x	x	x	x	x	x	=	%	=															x	x	x	  	x	 	",
+    "																							x	x	x				  		 	",
+    "																																 	",
+    "									*	x					*					x	x											 	",
+    "								^	x	x					*																	 	",
+    "				x	x	x	x	x	x						*								x	x	x	x	x					 	",
+    "															*															*		 	",
+    "	x	x													*														x	x	x	 	",
+    "			^						*						*																	 	",
+    "		x	x	x	x			x	x	x										x	x	x			x	x	x	x				 	",
+    "																																 	",
+    "													x	x	x	x	x													-+	 	",
+    "		*										x						x							*				 	()  	",
+    "	=	=	=	=	=	=			x	x	x								x	x	x			x	x	x	x	x	x	x	x	x	",
+    "                                             	 								 	",
+    "                                             									 	",
   ],
 
-]
+  [
+    "											*															^					*	 	",
+    "	=	=	=	=	=	=	=	=	=	%	=															=	=	=	  	=	 	",
+    "																							=	=	=				  		 	",
+    "																																 	",
+    "									*	=					*					=	=											 	",
+    "								^	=	=					*																	 	",
+    "				=	=	=	=	=	=						*								=	=	=	=	=					 	",
+    "															*															*		 	",
+    "	=	=													*														=	=	=	 	",
+    "			^						*						*																	 	",
+    "		=	=	=	=			=	=	=										=	=	=			=	=	=	=				 	",
+    "																																 	",
+    "													=	=	=	=	=												  -+	 	",
+    "		*										=						=							*				 	()  	",
+    "	=	=	=	=	=	=			=	=	=								=	=	=			=	=	=	=	=	=	=	=	=	",
+    "                                             	 								 	",
+    "                                             									 	",
+  ],
+
+  [
+    "	=	=	=	=	=	=	=			=	=	=	=	=	=	=	=	=	=	=	=	=	=	=	=	=	=	=	=	=	=	",
+    "								 	 																							",
+    "						=																										",
+    "						=				*			*			*																",
+    "						=	=	=	=	=	=	=	=	=	=	=	=	=	=	=			=	=	=	=	=	=	=	=		",
+    "				=																									=	=		",
+    "				=			^																				*	=	=	=		",
+    "				=	=	=	=	=	=	=	=	x	=	=	=			=	=	x	=	=	=		=	=	=	=	%	=		",
+    "																								=						=		",
+    "																							^					*	=			",
+    "			=			=	=	=	=	x	=	=	=	x	=	=	=	%	=	=	=	=	=	=	=	=	=	=	=			",
+    "																																",
+    "		*															=				^											",
+    "	=	=	=	=	x	=	=	=	=			=	=	=	x	=	=	=	=	=	=	=	=	=	=			=	=			",
+    "																								=					  -+	",
+    "							^									^					*			=	*					()	",
+    "	=	=		 	=	=	=	=	=	x	=	=	=	=	=	=	=			=	=	=	=	=	=	=	=	=			=	",
+  ],
+
+  [
+    "																																",
+    "																																",
+    "																		*														",
+    "	=	==	=	=	=											=	=												*		",
+    "						=		^			=	=		=	=					=								^		=		",
+    "	%	=				=	=	=	=												=	=	=			=	=	=	=	=		",
+    "																																",
+    "	=																															",
+    "		=	=	=			=	=	=		=													=	=							",
+    "												=		=	=		=															",
+    "																		=		=	=											",
+    "					=	=																										",
+    "	*																															",
+    "	%	=																														",
+    "							=	=																					 -+		",
+    "	=												^								^						=		 ()		",
+    "	=	=			=	=	=	=	=	=	=	=	=	=	=	=	=			=	=	=	=	=	=	=	=	=	 ==	=	",
+  ],
+
+  [
+    " 						=	=		 	=	=																				",
+    "								  								=										=	%	=			",
+    "			=				*										=									*			^			",
+    "			=	=	=	=	=	=	=	=	=	=	=				=									=	=	=	=	=		",
+    "	*			=										=			=							=	=							",
+    "	=				=	*	^																=									",
+    "	=	=			=	=	=	=	=	=	=					*						=	=			*	*					",
+    "	=	=			=	=	%							=	=	=	=			=	=					=	=					",
+    "	=	=	*			=							=				=													=	=	",
+    "	=	=	=			=	=			=	=	=					=															",
+    "			=			=											=	=	=	=	=	=	=	=	=	=			=	=	=	",
+    "		=	=			=	=							=																		",
+    "		=	=					=	=	=	=	=	=	=						^	*	*	*	*	^							",
+    "				=														=	=	=	=	=	=	=	=	=	=	=	=			",
+    "					=	*						^	*													=	%				=	",
+    "						=	=	=			=	=	=	=	=										^							",
+    "								=								=	=	=	=	=	=			=	=	=	=		   		",
+    "																													-+		",
+    "																													()		",
+    "	=	=	=	=	=	=	=	=	=	=	=	=	=	=	=	=	=			=	=	=	=	=	=			=	=	=	=	",
+  ],
+
+  */
+
+  // sarah maps
+  [
+    "                                                       ",
+    "==                                                     ",
+    "                                                       ",
+    "   xx                                                  ",
+    "                                                       ",
+    "       xx                        $                     ",
+    "                                xx  #                  ",
+    "           xx               xx      xx                 ",
+    "                    $   =*              x%  $          ",
+    "                    xx                      xx         ",
+    "                        xx              xx             ",
+    "                            xx  $   xx                 ",
+    "                                x%                     ",
+    "                                                     -+",
+    "                                                     ()",
+    "xx  xx  xx  xx  xx  xx  xx  xx  xx  xx  xx  xx xx xx xx",
+  ],
+  
+  [
+    "==                                                     ",
+    "    xx                                                 ",
+    "        xx                                             ",
+    "            xx                                         ",
+    "                  xxxxxx=*xxxxxxxxxx%xxxxxxxxxxxxxxx   ",
+    "            x                                      $x  ",
+    "                  xxxxxxxxxxxxxxxxxxxx%xxxxxxxxxxxxx   ",
+    "                  x$                                   ",
+    "          x       xxxxxxxxxxxxx%xxxxxxxxxxxxxxxxxxxx   ",
+    "                                                  $x   ",
+    "       x          xxxxxxxxxxxxxxxxxxxx%xxxxxxxxxxxxx   ",
+    "                  x$                                   ",
+    "         x        xxxxxxxxx%xxxxxxxxxxxxxxxxxxxxxxxx   ",
+    "            x                                      $x  ",
+    "              x   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   ",
+    "                  x$                                   ",
+    "                  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   ",
+    "                                                     -+",
+    "                                                     ()",
+    "                                                     xx",
+  ],
+
+];
