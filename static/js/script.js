@@ -3,9 +3,11 @@ const k = kaboom({
   global: true, // import all kaboom functions to global namespace
   scale: 2, // pixel size (for pixelated games you might want smaller size with scale)
   clearColor: [0, 0, 0, 0], // background color (default is a checker board background)
-  fullscreen: true, // if fullscreen
+  fullscreen: false, // if fullscreen
   crisp: true, // if pixel crisp (for sharp pixelated games)
   debug: true, // debug mode
+  width: 480,
+  height: 480,
 });
 
 const gameCanvas = document.getElementsByTagName('canvas')[0]
