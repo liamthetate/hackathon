@@ -4,8 +4,8 @@
   margin: 0;
   padding: 0;
 }
+
 h1 {
-  font-family: "Amiga Forever", sans-serif;
   text-align: center;
   color: #0dc8cd;
   padding-top: 3vw;
@@ -22,9 +22,10 @@ p {
   color: black;
 }
 
-h3,
-p {
+.card-back h3,
+.card-back p {
   padding: 15px;
+  color: black;
 }
 
 img {
@@ -80,6 +81,7 @@ body {
   border: black 4px solid;
   border-radius: 10px;
   transform: rotateX(0deg);
+  perspective: 0;
   -webkit-perspective: 0;
   -webkit-backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
@@ -95,8 +97,6 @@ body {
 
 .card-back {
   background-color: #73ca75;
-  /* background-color: #DFACDE; */
-  color: azure;
   transform: rotateY(180deg);
 }
 

@@ -7,7 +7,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    display: flex;
+    display: block;
     justify-content: center;
     background: url("../images/retro-cloud.gif");
     background-position: center;
@@ -18,6 +18,19 @@
 
   canvas {
     display: block;
-    margin-top: 10vh;
+    margin-top: 5vh;
+    margin-left: 15vh;
     height: 80vh;
+  }
+  .font{
+    font-family: 'Amiga Forever';
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 3px;
+  }
+  #name{
+    background-color: transparent;
+    font-family: 'Amiga Forever';
+    font-weight: 700;
+    border-color: black;
   }
