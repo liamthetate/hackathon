@@ -19,6 +19,11 @@ loadSound("jump", "static/sounds/jump_biploop.wav")
 loadSound("jumpy", "static/sounds/jumpy_biploop.wav")
 loadSound("negative_hit1", "static/sounds/negative_hit_bip_1loop.wav")
 loadSound("negative_hit2", "static/sounds/negative_hit_biploop.wav")
+loadSound("biscuit", "static/sounds/biscuit_crunch.wav")
+loadSound("level_complete", "static/sounds/into_the_teacup_shorter.wav")
+loadSound("big_enemy_dead", "static/sounds/kill_big_enemy.wav")
+
+
 
 // music loops
 loadSound("menu", "static/sounds/MENU_LOOP.mp3")
@@ -62,7 +67,7 @@ loadSprite("inhuman-plague", "static/sprites/the-inhuman-plague-small.png")
 loadSprite("whackem-jackson", "static/sprites/whackem-jackson-small.png")
 
 const layerColours = ["pink", "blue", "red", "green"]
-const angles = [0, 90, 180, 360]
+const angles = [0, 90, 180]
 const villains = [sprite("bob-mardy"), sprite("disco-inferno"), sprite("rotten-johnny"), sprite("shanking-stevens"), sprite("shanking-stevens1"), sprite("inhuman-plague"), sprite("whackem-jackson")];
 let playerScore = 0;
 
@@ -118,7 +123,7 @@ scene("game", () => {
     '3': [sprite('pipe-open-top-left-side'), scale(0.5), solid()],
     '4': [sprite('pipe-open-top-right-side'), scale(0.5), solid(), 'pipe'],
 
-    'b': [sprite('block'), solid()],
+    'b': [sprite('brick'), solid()],
     '^': [sprite('evil-shroom-1'), solid(), 'dangerous'],
     '#': [sprite('mushroom'), 'mushroom', body()],
   }
@@ -260,7 +265,7 @@ scene("game", () => {
   lionel.collides('evil', (e) => {
     if (lionel.pos.y < e.pos.y) {
       lionel.jump(JUMP_FORCE);
-      play("death_scream");
+      play("big_enemy_dead");
       camShake(2);
       destroy(e);
     } else {
@@ -332,7 +337,7 @@ scene("game", () => {
 
   // action when lionel collides with coin sprite
   lionel.collides('coin', (c) => {
-    play("death_scream");
+    play("biscuit");
     destroy(c);
     biscuits -= 1;
     checkBiscuits();
@@ -346,8 +351,25 @@ scene("game", () => {
     destroy(p)
     gameLevel.spawn('b', p.gridPos.sub(0, 0))
     // spins canvas
+    //angle += 90;
     document.querySelector('canvas').style.setProperty("transform", `rotate(${angle}deg)`)
+    /*
+    // updates background colour
+    colourCounter = (colourCounter + 1) % layerColours.length;
+    add([
+      layer("bg"),
+      sprite(`background-${layerColours[colourCounter]}`, {
+        width: width(),
+        height: height(),
+      })
+    ])
 
+    if (musicTune == 2000){
+      musicTune = -1000
+    } else {
+      musicTune += 40
+    }
+    */
   });
 
   // action when lionel jumps on pipe
