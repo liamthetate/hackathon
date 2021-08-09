@@ -32,7 +32,8 @@ def cards():
 
 @app.route("/leaderboard")
 def leaderboard():
-    return render_template("leaderboard.html")
+    scores = mongo.db.scores.find().sort("score", -1)
+    return render_template("leaderboard.html", scores=scores)
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
