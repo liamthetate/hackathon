@@ -460,6 +460,9 @@ scene("gameover", () => {
 
   $("#score").val(playerScore);
   document.getElementById('score').innerHTML = playerScore.toString();
+  console.log(playerScore)
+  let scoreLabel = document.querySelector('#score-label');
+  scoreLabel.innerHTML =`YOUR SCORE: ${playerScore}`;
   gameCanvas.classList.add("d-none");
   let scoreForm = document.querySelector('form');
   scoreForm.classList.remove("d-none");
