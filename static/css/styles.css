@@ -3,7 +3,8 @@
 * {
   margin: 0;
   padding: 0;
-  
+}
+
  h1 {
   font-family: 'Amiga Forever', sans-serif;
   text-align: center;
@@ -20,9 +21,10 @@ p {
   font-size: small;
 }
 
-h3,
-p {
+.card-back h3,
+.card-back p {
   padding: 15px;
+  color: black;
 }
 
 img {
@@ -93,8 +95,6 @@ body {
 
 .card-back {
   background-color: #73ca75;
-  /* background-color: #DFACDE; */
-  color: azure;
   transform: rotateY(180deg);
 }
 
