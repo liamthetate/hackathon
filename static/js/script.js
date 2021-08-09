@@ -255,7 +255,7 @@ scene("game", () => {
     if (villain.grounded()) {
       villain.jump(150);
     }
-  })
+  });
 
   lionel.collides('evil', (e) => {
     if (lionel.pos.y < e.pos.y) {
@@ -268,7 +268,7 @@ scene("game", () => {
       lionel.destroy();
       go("gameover");
     }
-  })
+  });
 
   // defines lionel sprites behaviour - is tracked by camera and falldeath action
   lionel.action(() => {
