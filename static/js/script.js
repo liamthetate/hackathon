@@ -370,14 +370,14 @@ scene("gameover", () => {
   play("gameover_sound")
 
   // gameover screen text
-  add([
+  let gameOver = add([
     text("Game Over", 16),
     pos(width() / 2, 100),
     origin("center"),
     color(rgb(0, 0, 0)),
   ]);
 
-  add([
+  let userScore = add([
     text(`Score: ${playerScore}`, 16),
     pos(width() / 2, 180),
     origin("center"),
@@ -385,13 +385,22 @@ scene("gameover", () => {
     color(rgb(0, 0, 0)),
   ]);
 
-  add([
-    text("Press space to go again, loser", 16),
+  let gameOverText1 = add([
+    text("Press space to go again, loser!", 16),
     pos(width() / 2, 260),
     origin("center"),
     color(rgb(1, 1, 1)),
     color(rgb(0, 0, 0)),
   ]);
+
+  let gameOverText2 = add([
+    text("Or stop embarassing yourself and just ESC!", 16),
+    pos(width() / 2, 340),
+    origin("center"),
+    color(rgb(1, 1, 1)),
+    color(rgb(0, 0, 0)),
+  ]);
+
 
   // press space to restart game
   keyPress("space", () => {
@@ -400,6 +409,25 @@ scene("gameover", () => {
     music.play()
   });
 
+  keyPress("escape", () => {
+   // show form for name input and score
+  //  gameOver.text = "";
+  //  gameOverText1.text = "";
+  //  gameOverText2.text = "";
+  //  userScore.text = "";
+  //  add([
+  //   text("Please input your name", 16),
+  //   pos(width() / 2, 10),
+  //   origin("center"),
+  //   color(rgb(1, 1, 1)),
+  //   color(rgb(0, 0, 0)),
+  // ]);
+  let playerScoreForHTML = document.getElementById('score').value = playerScore
+  document.getElementById('score').innerHTML = playerScoreForHTML;
+  gameCanvas.classList.add("d-none");
+  let scoreForm = document.querySelector('form');
+  scoreForm.classList.remove("d-none");
+  });
 });
 
 // defines starting screen
