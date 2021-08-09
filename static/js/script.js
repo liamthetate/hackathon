@@ -497,12 +497,13 @@ scene("start", () => {
     location="https://lionoil.herokuapp.com/cards"
   });
 
-});
-  // press space to start
-  keyPress("space", () => {
+   // press space to start
+   keyPress("space", () => {
     go("game");
     music.play()
   });
+
+});
 
 // default action on page load - start screen
 go("start")
