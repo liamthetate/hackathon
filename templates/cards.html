@@ -1,125 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LIONOIL</title>
-    <link rel="stylesheet" href="static/css/styles.css" />
-    <link href="https://fonts.cdnfonts.com/css/amiga-forever" rel="stylesheet" />
-  </head>
-  <body>
-    <nav id="menu">
-      <ul>
-        <li><a href="templates/index.html">Start</a></li>
-        <li><a href="templates/story.html">The Story So Far</a></li>
-        <li><a href="templates/cards.html" class="active">Bad guys</a></li>
-        <li><a href="templates/leaderboard.html">Leaderboard</a></li>
-      </ul>
-    </nav>
-
-    <!-- cards section -->
-    <section>
-      <div class="wrapper">
-        <div class="card-container">
-          <div class="card">
-            <div class="card-front bad-guy card1">
-              <img src="static/images/rotten-johnny.png" />
-            </div>
-            <div class="card-back">
-              <h3>Rotten Johnny</h3>
-              <p>
-                Battle cry:<br />
-                "Never mind your bollocks, I'm going to cream cracker ya!
-                Feeling lucky punk?" <br /><br />Weapon of choice:
-                <br />Headbutts, flob, studded gloves.
-              </p>
-            </div>
-          </div>
+{% extends "base.html" %}
+{% block content %}
+<!-- cards section -->
+<section>
+  <div class="wrapper">
+    <div class="card-container">
+      <div class="card">
+        <div class="card-front bad-guy card1">
+          <img src="static/images/rotten-johnny.png" />
         </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="card-front">
-              <img src="static/images/disco-inferno.png" alt="" />
-            </div>
-            <div class="card-back">
-              <h3>Disco Inferno</h3>
-              <p>
-                Battle cry: <br />"Your midweight Motown crossover R'nB ain't
-                disco. I have all the hot moves and I'm going to burn you
-                down!"<br />
-                <br />Weapon of choice: <br />Lasers fired from the fingers.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="card-front">
-              <img src="static/images/the-inhuman-plague.png" />
-            </div>
-            <div class="card-back">
-              <h3>The Inhuman Plague</h3>
-              <p>
-                Battle cry: <br />"Ey up chuck, you think your songs are
-                infectious? I'm going to go fully pandemic mate!"
-                <br /><br />Weapon of choice:<br />
-                Covid-85 spores
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="card-front">
-              <img src="static/images/shanking-stevens1.png" />
-            </div>
-            <div class="card-back">
-              <h3>Shanking Stevens</h3>
-              <p>
-                Battle cry:<br />
-                "This ole house ain't big enough for the both of us. What's
-                behind the green door? Your demise boyo!" <br /><br />Weapon of
-                choice:<br />
-                Flick knife (and comb)
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="card-front">
-              <img src="static/images/bob-mardy.png" />
-            </div>
-            <div class="card-back">
-              <h3>Bob Mardy</h3>
-              <p>
-                Battle cry:<br />
-                "I shot the sheriff and I'm going to take you down. No Lionel
-                no-one cry." <br /><br />Weapon of choice:<br />
-                Disorientating smoke from a special cigarette.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="card-front">
-              <img src="static/images/whackem-jackson.png" />
-            </div>
-            <div class="card-back">
-              <h3>Whack’em Jackson</h3>
-              <p>
-                Battle cry:<br />
-                Arrrrgghhhhh! Your music makes me want to scream. I'm going to
-                moonwalk all over you! Hee hee!" <br /><br />Weapon of
-                choice:<br />
-                Sharpened shoe kicks and a razor blade hat.
-              </p>
-            </div>
-          </div>
+        <div class="card-back">
+          <h3>Rotten Johnny</h3>
+          <p>
+            Battle cry:<br />
+            "Never mind your bollocks, I'm going to cream cracker ya!
+            Feeling lucky punk?" <br /><br />Weapon of choice:
+            <br />Headbutts, flob, studded gloves.
+          </p>
         </div>
       </div>
-    </section>
-  </body>
-</html>
+    </div>
+    <div class="card-container">
+      <div class="card">
+        <div class="card-front">
+          <img src="static/images/disco-inferno.png" alt="" />
+        </div>
+        <div class="card-back">
+          <h3>Disco Inferno</h3>
+          <p>
+            Battle cry: <br />"Your midweight Motown crossover R'nB ain't
+            disco. I have all the hot moves and I'm going to burn you
+            down!"<br />
+            <br />Weapon of choice: <br />Lasers fired from the fingers.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="card-container">
+      <div class="card">
+        <div class="card-front">
+          <img src="static/images/the-inhuman-plague.png" />
+        </div>
+        <div class="card-back">
+          <h3>The Inhuman Plague</h3>
+          <p>
+            Battle cry: <br />"Ey up chuck, you think your songs are
+            infectious? I'm going to go fully pandemic mate!"
+            <br /><br />Weapon of choice:<br />
+            Covid-85 spores
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="card-container">
+      <div class="card">
+        <div class="card-front">
+          <img src="static/images/shanking-stevens1.png" />
+        </div>
+        <div class="card-back">
+          <h3>Shanking Stevens</h3>
+          <p>
+            Battle cry:<br />
+            "This ole house ain't big enough for the both of us. What's
+            behind the green door? Your demise boyo!" <br /><br />Weapon of
+            choice:<br />
+            Flick knife (and comb)
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="card-container">
+      <div class="card">
+        <div class="card-front">
+          <img src="static/images/bob-mardy.png" />
+        </div>
+        <div class="card-back">
+          <h3>Bob Mardy</h3>
+          <p>
+            Battle cry:<br />
+            "I shot the sheriff and I'm going to take you down. No Lionel
+            no-one cry." <br /><br />Weapon of choice:<br />
+            Disorientating smoke from a special cigarette.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="card-container">
+      <div class="card">
+        <div class="card-front">
+          <img src="static/images/whackem-jackson.png" />
+        </div>
+        <div class="card-back">
+          <h3>Whack’em Jackson</h3>
+          <p>
+            Battle cry:<br />
+            Arrrrgghhhhh! Your music makes me want to scream. I'm going to
+            moonwalk all over you! Hee hee!" <br /><br />Weapon of
+            choice:<br />
+            Sharpened shoe kicks and a razor blade hat.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
