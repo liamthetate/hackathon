@@ -15,10 +15,10 @@
 <body>
     <nav id="menu">
         <ul>
-            <li><a href="{{ url_for('index') }}">Start</a></li>
-            <li><a href="{{ url_for('story') }}">The Story So Far</a></li>
-            <li><a href="{{ url_for('cards') }}" class="active">Bad guys</a></li>
-            <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+            <li><a href="{{ url_for('index') }}" class="{% block nav_home %}{% endblock %}">Start</a></li>
+            <li><a href="{{ url_for('story') }}" class="{% block nav_story %}{% endblock %}">The Story So Far</a></li>
+            <li><a href="{{ url_for('cards') }}" class="{% block nav_cards %}{% endblock %}">Bad guys</a></li>
+            <li><a href="{{ url_for('leaderboard') }}" class="{% block nav_leaderboard %}{% endblock %}">Leaderboard</a></li>
         </ul>
     </nav>
     {% block content %}{% endblock %}

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block nav_home %}active{% endblock %}
 {% block content %}
 
         <form class="d-none m-auto form-style" action="{{ url_for('add_score') }}" method="POST">
