@@ -420,7 +420,7 @@ scene("gameover", () => {
   ]);
 
   let gameOverText1 = add([
-    text("Press space to go again, loser!", 12),
+    text("Press space to go again, loser!", 10),
     pos(width() / 2, 260),
     origin("center"),
     color(rgb(1, 1, 1)),
@@ -428,7 +428,7 @@ scene("gameover", () => {
   ]);
 
   let gameOverText2 = add([
-    text("Or stop embarassing yourself and just ESC!", 12),
+    text("Or stop embarassing yourself and just ESC!", 10),
     pos(width() / 2, 340),
     origin("center"),
     color(rgb(1, 1, 1)),
