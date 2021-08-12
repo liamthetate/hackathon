@@ -23,6 +23,7 @@ canvas {
 	display: flex;
   margin-left: 100px;
   margin-bottom: 10vh;
+	margin-top: 10vh;
 	height: 80vh;
 }
 h1 {
@@ -46,12 +47,6 @@ p {
 img {
 	align-items: center;
 	padding-top: 10px;
-}
-body {
-	background-image: url("../sprites/bg5.png");
-	background-size: contain;
-	background-attachment: fixed;
-	color: black;
 }
 .wrapper {
 	display: flex;
@@ -169,7 +164,6 @@ nav {
 ul {
 	list-style-type: none;
 	margin: 0;
-	padding-left: 14%;
 	overflow: hidden;
 }
 li {
@@ -188,25 +182,6 @@ li a:hover:not(.active) {
 }
 .active {
 	background-color: #73ca75;
-}
-* {
-	margin: 0;
-}
-html {
-	display: flex;
-	justify-content: center;
-	background: url("../images/retro-cloud.gif");
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-attachment: fixed;
-	position: relative;
-}
-canvas {
-	display: flex;
-	margin-top: 10vh;
-	height: 80vh;
-	transition: 0.5s;
 }
 .form-style {
 	font-family: 'Amiga Forever', sans-serif;
