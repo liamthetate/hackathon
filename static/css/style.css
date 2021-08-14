@@ -26,6 +26,7 @@ canvas {
   margin-bottom: 10vh;
 	margin-top: 10vh;
 	height: 80vh;
+	transition: 0.5s;
 }
 h1 {
 	text-align: center;
